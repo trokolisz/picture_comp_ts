@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Metadata } from "next";
-import "./globals.css";
-import { Inter } from 'next/font/google'
+import "../globals.css";
 
 import { Suspense } from 'react'
 
@@ -11,10 +10,7 @@ import { AppSidebar } from "@/components/admin/app-sidebar"
 import {
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger,
 } from "@/components/ui/sidebar"
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: "Picture Competition",
@@ -27,10 +23,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html data-theme="winter" lang="en">
-      <body className={inter.className}>
+
+      <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>   
+          <Suspense fallback={<div>Loading...</div>}>
             {children}
-      </body>
-    </html>
+          </Suspense>
+       
+        </SidebarInset>
+        </SidebarProvider>
+
   )
 }

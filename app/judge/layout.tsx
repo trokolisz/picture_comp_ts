@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import { Inter } from 'next/font/google'
 
 import { Suspense } from 'react'
@@ -27,10 +27,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html data-theme="winter" lang="en">
-      <body className={inter.className}>
+
+      <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>   
+          <Suspense fallback={<div>Loading...</div>}>
             {children}
-      </body>
-    </html>
+          </Suspense>
+       
+        </SidebarInset>
+        </SidebarProvider>
   )
 }
