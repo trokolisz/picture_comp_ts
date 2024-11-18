@@ -4,6 +4,7 @@
 
 :root {
   --foreground-rgb: 85, 107, 47;
+  --background: #E5E7EB;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,6 +21,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
 
 }
 
@@ -55,6 +57,7 @@ h1 {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    
   }
 
   .dark {

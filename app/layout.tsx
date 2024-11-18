@@ -21,8 +21,8 @@ export default function RootLayout({
 }) {
   return (
 
-    <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
-      <body className="bg-blue-00 font-sans">
+    <html lang="en" className={`${inter.variable} ${montserrat.variable} bg-[#e5e8e8]`}>
+      <body className="bg-[#e5e8e8] font-sans">
         <Suspense fallback={
           <div style={{
             display: 'flex',

@@ -14,18 +14,18 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export type User = {
-  username: string
-  full_name: string
-  email: string
+
+export type Competition = {
+  name: string
+  description: string
+  start_date: string
+  end_date: string
   is_active: boolean
-  password: string
-  role: string
-  created_at: string
-  updated_at: string
+  num_judges: number
+  num_teams: number
 }
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<Competition>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -70,70 +70,88 @@ export const columns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "username",
+    accessorKey: "name",
     header: () => (
       <div
         style={{
           backgroundColor: "#52be80",
-          color: "white",              
-          padding: "10px 15px",        
-          fontWeight: "bold",          
-          textAlign: "center",         
-          borderRadius: "5px",         
+          color: "white",
+          padding: "10px 15px",
+          fontWeight: "bold",
+          textAlign: "center",
+          borderRadius: "5px",
         }}
       >
-        Username
+        Name
       </div>
     ),
-    cell: ({ row }) => <div>{row.getValue("username")}</div>,
+    cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
-    accessorKey: "full_name",
+    accessorKey: "description",
     header: () => (
       <div
         style={{
-          backgroundColor: "#52be80", 
-          color: "white",              
-          padding: "10px 15px",        
-          fontWeight: "bold",          
-          textAlign: "center",         
-          borderRadius: "5px",        
+          backgroundColor: "#52be80",
+          color: "white",
+          padding: "10px 15px",
+          fontWeight: "bold",
+          textAlign: "center",
+          borderRadius: "5px",
         }}
       >
-        Full Name
+        Description
       </div>
     ),
-    cell: ({ row }) => <div>{row.getValue("full_name")}</div>,
+    cell: ({ row }) => <div>{row.getValue("description")}</div>,
   },
   {
-    accessorKey: "email",
+    accessorKey: "start_date",
     header: () => (
       <div
         style={{
-          backgroundColor: "#52be80", 
-          color: "white",              
-          padding: "10px 15px",        
-          fontWeight: "bold",         
-          textAlign: "center",         
-          borderRadius: "5px",        
+          backgroundColor: "#52be80",
+          color: "white",
+          padding: "10px 15px",
+          fontWeight: "bold",
+          textAlign: "center",
+          borderRadius: "5px",
         }}
       >
-        Email
+        Start Date
       </div>
     ),
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => <div>{row.getValue("start_date")}</div>,
+  },
+  {
+    accessorKey: "end_date",
+    header: () => (
+      <div
+        style={{
+          backgroundColor: "#52be80",
+          color: "white",
+          padding: "10px 15px",
+          fontWeight: "bold",
+          textAlign: "center",
+          borderRadius: "5px",
+        }}
+      >
+        End Date
+      </div>
+    ),
+    cell: ({ row }) => <div>{row.getValue("end_date")}</div>,
   },
   {
     accessorKey: "is_active",
     header: () => (
       <div
         style={{
-          backgroundColor: "#52be80", 
-          color: "white",              
-          padding: "10px 15px",        
-          fontWeight: "bold",          
-          textAlign: "center",        
-          borderRadius: "5px",        
+          backgroundColor: "#52be80",
+          color: "white",
+          padding: "10px 15px",
+          fontWeight: "bold",
+          textAlign: "center",
+          borderRadius: "5px",
         }}
       >
         Active
@@ -144,64 +162,46 @@ export const columns: ColumnDef<User>[] = [
     ),
   },
   {
-    accessorKey: "role",
+    accessorKey: "num_judges",
     header: () => (
       <div
         style={{
-          backgroundColor: "#52be80", 
-          color: "white",              
-          padding: "10px 15px",        
-          fontWeight: "bold",          
-          textAlign: "center",         
-          borderRadius: "5px",         
+          backgroundColor: "#52be80",
+          color: "white",
+          padding: "10px 15px",
+          fontWeight: "bold",
+          textAlign: "center",
+          borderRadius: "5px",
         }}
       >
-        Role
+        Number of Judges
       </div>
     ),
-    cell: ({ row }) => <div>{row.getValue("role")}</div>,
+    cell: ({ row }) => <div>{row.getValue("num_judges")}</div>,
   },
   {
-    accessorKey: "created_at",
+    accessorKey: "num_teams",
     header: () => (
       <div
         style={{
-          backgroundColor: "#52be80", 
-          color: "white",              
-          padding: "10px 15px",        
-          fontWeight: "bold",          
-          textAlign: "center",         
-          borderRadius: "5px",         
+          backgroundColor: "#52be80",
+          color: "white",
+          padding: "10px 15px",
+          fontWeight: "bold",
+          textAlign: "center",
+          borderRadius: "5px",
         }}
       >
-        Created At
+        Number of Teams
       </div>
     ),
-    cell: ({ row }) => <div>{row.getValue("created_at")}</div>,
-  },
-  {
-    accessorKey: "updated_at",
-    header: () => (
-      <div
-        style={{
-          backgroundColor: "#52be80", 
-          color: "white",              
-          padding: "10px 15px",        
-          fontWeight: "bold",          
-          textAlign: "center",         
-          borderRadius: "5px",         
-        }}
-      >
-        Updated At
-      </div>
-    ),
-    cell: ({ row }) => <div>{row.getValue("updated_at")}</div>,
+    cell: ({ row }) => <div>{row.getValue("num_teams")}</div>,
   },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const user = row.original
+      const competition = row.original
 
       return (
         <DropdownMenu>
@@ -214,13 +214,13 @@ export const columns: ColumnDef<User>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.username)}
+              onClick={() => navigator.clipboard.writeText(competition.name)}
             >
-              Copy username
+              Copy competition name
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => window.location.href = `/admin/users/${user.username}`}>
-              View user details
+            <DropdownMenuItem onClick={() => window.location.href = `/admin/competitions/${competition.name}`}>
+              View competition details
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

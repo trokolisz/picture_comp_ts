@@ -47,7 +47,7 @@ export function NavMain({
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton
                   tooltip={item.title}
-                  className="flex items-center p-2 text-gray-700 rounded-md transition-colors duration-300 hover:bg-[#7dcea0] hover:text-white"
+                  className="flex items-center p-2 text-gray-700 rounded-md transition-colors duration-300 hover:bg-[#52be80] hover:text-white"
                 >
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
@@ -60,7 +60,7 @@ export function NavMain({
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton
                         asChild
-                        className="flex items-center p-2 text-gray-700 rounded-md transition-colors duration-300 hover:bg-[#7dcea0] hover:text-white"
+                        className="flex items-center p-2 text-gray-700 rounded-md transition-colors duration-300 hover:bg-[#52be80] hover:text-white"
                       >
                         <a href={subItem.url}>
                           <span>{subItem.title}</span>

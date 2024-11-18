@@ -10,16 +10,33 @@ interface Competition {
     start_date: string;
     end_date: string;
     is_active: boolean;
-    judges: string[];
-    teams: string[];
-
+    judges?: string[];
+    teams?: object;
+    num_judges?: number;
+    num_teams?: number;
 }
 
 async function fetchCompetitions(): Promise<Competition[]> {
     const competitionsRef = ref(database, 'competition');
     const snapshot = await get(competitionsRef);
     if (snapshot.exists()) {
-        return snapshot.val() as Competition[];
+        const data = snapshot.val();
+
+
+        return Object.entries(data).map(([key, value]) => {
+            if (typeof value === 'object' && value !== null) {
+                return {
+                    name: (value as Competition).name,
+                    description: (value as Competition).description,
+                    start_date: (value as Competition).start_date,
+                    end_date: (value as Competition).end_date,
+                    is_active: (value as Competition).is_active,
+                    num_judges: Array.isArray((value as Competition).judges) ? ((value as Competition).judges?.length ?? 0) : 0,
+                    num_teams: (value as Competition).teams && typeof (value as Competition).teams === 'object' ? Object.keys((value as Competition).teams ?? {}).length : 0
+                };
+            }
+            return value as Competition;
+        });
     } else {
         console.log('No competitions available');
         return [];
@@ -34,13 +51,12 @@ async function createCompetition(data: Competition) {
 export async function GET() {
     try {
         const competitions = await fetchCompetitions();
-        return NextResponse.json({ success: true, data: competitions });
+        return NextResponse.json({success: true, data: competitions}, { status: 200 });
     } catch (error) {
         console.error('Error fetching competitions:', error);
         return NextResponse.json({ success: false, message: 'Failed to fetch competitions' }, { status: 500 });
     }
 }
-
 
 // API route handler for POST request
 export async function POST(request: NextRequest) {
@@ -64,15 +80,14 @@ export async function POST(request: NextRequest) {
         description: validation.data.description,
         start_date: validation.data.start_date,
         end_date: validation.data.end_date,
-        is_active: validation.data.is_active,
- 
+        is_active: false, 
     };
 
     try {
         await createCompetition(competition);
-        return NextResponse.json({ success: true, message: 'Competition created successfully' });
+        return NextResponse.json( competition, { status: 201 });
     } catch (error) {
         console.error('Error creating competition:', error);
-        return NextResponse.json({ success: false, message: 'Failed to create competition' }, { status: 500 });
+        return NextResponse.json('failed to create user', { status: 500 });
     }
 }
