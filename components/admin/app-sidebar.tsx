@@ -11,6 +11,8 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
+  Amphora,
+  ArrowBigLeftDash,
 } from "lucide-react"
 
 import { NavMain } from "@/components/admin/nav-main"
@@ -36,7 +38,7 @@ const data = {
     {
       title: "Versenyek",
       url: "#",
-      icon: SquareTerminal,
+      icon: Amphora,
       isActive: true,
       items: [
         {
@@ -51,6 +53,7 @@ const data = {
           title: "Verseny létrehozása",
           url: "#",
         },
+        
       ],
     },
     {
@@ -60,7 +63,7 @@ const data = {
       items: [
         {
           title: "Felhasználók Megtekintése",
-          url: "#",
+          url: "/admin/users",
         },
         
       ],
