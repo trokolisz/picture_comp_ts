@@ -37,11 +37,18 @@ export default function Home() {
         <div className="flex-grow" />
         <LightDarkSwitch />
       </header>
+
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0 shad">
         <div className="grid auto-rows-min gap-4 md:grid-cols-3 shad">
-          <div className="aspect-video rounded-xl bg-muted/50 shad" />
-          <div className="aspect-video rounded-xl bg-muted/50 shad" />
-          <div className="aspect-video rounded-xl bg-muted/50 shad" />
+          <div className="aspect-video rounded-xl bg-muted/50 shad" >
+            Doboz 1
+          </div>
+          <div className="aspect-video rounded-xl bg-muted/50 shad" >
+            Doboz 2
+          </div>
+          <div className="aspect-video rounded-xl bg-muted/50 shad" >
+            Doboz 3
+          </div>
         </div>
         <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min shad" />
       </div>

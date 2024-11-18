@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Switch } from "@/components/ui/switch";
-import { SunIcon, MoonIcon } from '@heroicons/react/solid';
 
 const LightDarkSwitch = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -28,15 +27,11 @@ const LightDarkSwitch = () => {
   };
 
   return (
-    <div className="flex items-center space-x-2">
-      <SunIcon className={`w-6 h-6 ${!isDarkMode ? 'text-yellow-500' : 'text-gray-400'}`} />
-      <Switch
-        checked={isDarkMode}
-        onCheckedChange={toggleDarkMode}
-        className="shad"
-      />
-      <MoonIcon className={`w-6 h-6 ${isDarkMode ? 'text-blue-500' : 'text-gray-400'}`} />
-    </div>
+    <Switch
+      checked={isDarkMode}
+      onCheckedChange={toggleDarkMode}
+      className="shad"
+    />
   );
 };
 

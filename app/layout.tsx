@@ -1,20 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter } from 'next/font/google'
+import { Inter, Montserrat } from 'next/font/google'
 
 import { Suspense } from 'react'
 
+const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-montserrat" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
-import { AppSidebar } from "@/components/admin/app-sidebar"
-
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: "Picture Competition",
@@ -27,9 +20,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-            {children}
+
+    <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
+      <body className="bg-blue-00 font-sans">
+        <Suspense fallback={
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh'
+          }}>
+            <div className="loader"></div>
+          </div>
+        }>
+          {children}
+        </Suspense>
       </body>
     </html>
   )

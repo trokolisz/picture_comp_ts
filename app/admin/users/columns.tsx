@@ -12,8 +12,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
- // Replace with the actual path to your Checkbox component
+} from "@/components/ui/dropdown-menu"
 
 export type User = {
   username: string
@@ -37,6 +36,11 @@ export const columns: ColumnDef<User>[] = [
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
+        style={{
+          backgroundColor: "#9FE2BF", 
+          borderColor: "#9FE2BF",     
+          color: "white",             
+        }}
       />
     ),
     cell: ({ row }) => (
@@ -44,6 +48,11 @@ export const columns: ColumnDef<User>[] = [
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
+        style={{
+          backgroundColor: row.getIsSelected() ? "#9FE2BF" : "", 
+          borderColor: row.getIsSelected() ? "#9FE2BF" : "",     
+          color: row.getIsSelected() ? "white" : "",             
+        }}
       />
     ),
     enableSorting: false,

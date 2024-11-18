@@ -2,16 +2,16 @@
 import * as React from "react"
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
+  Scale,
+  Users,
   Command,
   Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
-  Settings2,
+  Globe,
   SquareTerminal,
-  Amphora,
+  Trophy,
   ArrowBigLeftDash,
 } from "lucide-react"
 
@@ -38,7 +38,7 @@ const data = {
     {
       title: "Versenyek",
       url: "#",
-      icon: Amphora,
+      icon: Trophy,
       isActive: true,
       items: [
         {
@@ -59,7 +59,7 @@ const data = {
     {
       title: "Felhasználók",
       url: "#",
-      icon: Bot,
+      icon: Users,
       items: [
         {
           title: "Felhasználók Megtekintése",
@@ -71,7 +71,7 @@ const data = {
     {
       title: "Bírók",
       url: "#",
-      icon: BookOpen,
+      icon: Scale,
       items: [
         {
           title: "Bírók Megtekintése",
@@ -86,7 +86,7 @@ const data = {
     {
       title: "Publikus oldal",
       url: "#",
-      icon: Settings2,
+      icon: Globe,
       items: [
         {
           title: "Szerkeszés",
