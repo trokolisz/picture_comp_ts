@@ -42,11 +42,15 @@ const data = {
       isActive: true,
       items: [
         {
-          title: "Versenyek Megtekintése",
+          title: "Összes verseny",
           url: "/admin/competitions",
         },
         {
-          title: "Archivált Versenyek",
+          title: "Jelenleg futó versenyek",
+          url: "/admin/currently_running_competitions",
+        },
+        {
+          title: "Archivált versenyek",
           url: "/admin/archived_competitions",
         },
         {
