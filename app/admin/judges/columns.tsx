@@ -247,30 +247,30 @@ export const columns: ColumnDef<User>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {/*Felesleges és ront a kinézeten*/}
-            {/*</DropdownMenuContent>DropdownMenuLabel>Actions</DropdownMenuLabel>*/}
+            {/*</DropdownMenuContent>DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(user.username)}
             >
-              Copy username
-            </DropdownMenuItem>
+              Copy judge name
+            </DropdownMenuItem>*/}
             <DropdownMenuSeparator />
             {/*Törlés művelet*/}
             <DropdownMenuItem
               onClick={() => handleDelete(user.username)}
             >
-              Delete user
+              Delete judge
             </DropdownMenuItem>
             {/*Bannolás*/}
             <DropdownMenuItem
               onClick={() => handleBan(user.username, user.is_active)}
             >
-              {user.is_active ? "Ban user" : "Unban user"}
+              {user.is_active ? "Ban judge" : "Unban judge"}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => (window.location.href = `/admin/users/${user.username}`)}
             >
-              View user details
+              View judge details
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

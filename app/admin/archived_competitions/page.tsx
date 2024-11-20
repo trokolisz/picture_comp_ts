@@ -1,8 +1,8 @@
 import { get, ref } from 'firebase/database';
 import { database } from '../../../FirebaseConfig';
 import Link from 'next/link';
-import { User } from "./columns"
-import { DataTable } from ".//data-table"
+import { Competition } from "./columns"
+import { DataTable } from "./data-table"
 
 import {
   Breadcrumb,
@@ -18,24 +18,30 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 
-async function getUsersFromApi() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`);
+async function getCompetitionsFromApi() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/competitions`);
   try {
+   
     const data = await response.json();
+    
     if (data.success) {
-      return data.data.filter((user: User) => user.role === "judge");
+      return data.data.filter((competition: Competition) => competition.is_active === false);
     } else {
-      console.error('Failed to fetch users:', data.message);
+      console.error('Failed to fetch competitions:', data.message || 'Unknown error');
       return [];
     }
   } catch (error) {
-    console.error('Failed to fetch users:', error);
+    if (error instanceof Error) {
+      console.error('Failed to fetch competitions:', error.message || 'Unknown error');
+    } else {
+      console.error('Failed to fetch competitions:', 'Unknown error');
+    }
     return [];
   }
 }
 
 export default async function Home() {
-  const users = await getUsersFromApi();
+  const competitions = await getCompetitionsFromApi();
 
   return (
     <>
@@ -59,7 +65,7 @@ export default async function Home() {
                 <BreadcrumbSeparator className="hidden md:block" /> 
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    Users
+                    Archived Competitions
                   </BreadcrumbLink>
                 </BreadcrumbItem>                   
               </BreadcrumbList>
@@ -69,7 +75,7 @@ export default async function Home() {
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="grid auto-rows-min gap-4 md:grid-cols-1">
           <div className="aspect-video rounded-xl bg-muted/50">
-            <DataTable data={users} />
+            <DataTable data={competitions} />
           </div>
 
         </div>

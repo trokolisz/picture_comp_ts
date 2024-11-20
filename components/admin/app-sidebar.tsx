@@ -2,15 +2,17 @@
 import * as React from "react"
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
+  Scale,
+  Users,
   Command,
   Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
-  Settings2,
+  Globe,
   SquareTerminal,
+  Trophy,
+  ArrowBigLeftDash,
 } from "lucide-react"
 
 import { NavMain } from "@/components/admin/nav-main"
@@ -36,31 +38,32 @@ const data = {
     {
       title: "Versenyek",
       url: "#",
-      icon: SquareTerminal,
+      icon: Trophy,
       isActive: true,
       items: [
         {
           title: "Versenyek Megtekintése",
-          url: "#",
+          url: "/admin/competitions",
         },
         {
           title: "Archivált Versenyek",
-          url: "#",
+          url: "/admin/archived_competitions",
         },
         {
           title: "Verseny létrehozása",
-          url: "#",
+          url: "/admin/make_competitions",
         },
+        
       ],
     },
     {
       title: "Felhasználók",
       url: "#",
-      icon: Bot,
+      icon: Users,
       items: [
         {
           title: "Felhasználók Megtekintése",
-          url: "#",
+          url: "/admin/users",
         },
         
       ],
@@ -68,11 +71,11 @@ const data = {
     {
       title: "Bírók",
       url: "#",
-      icon: BookOpen,
+      icon: Scale,
       items: [
         {
           title: "Bírók Megtekintése",
-          url: "#",
+          url: "/admin/judges",
         },
         {
           title: "Bíró Jelentkezések",
@@ -83,7 +86,7 @@ const data = {
     {
       title: "Publikus oldal",
       url: "#",
-      icon: Settings2,
+      icon: Globe,
       items: [
         {
           title: "Szerkeszés",

@@ -1,6 +1,8 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { database } from '../../../../FirebaseConfig';
 import { ref, child, get, DatabaseReference, remove as firebaseRemove } from 'firebase/database';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Button } from "@/components/ui/button"
 
 interface User {
   username: string;
@@ -36,19 +38,40 @@ export async function GET(request: NextRequest, { params }: Props) {
   const username = (await params).username;
 
   if (!username) {
-    return NextResponse.json({ error: 'Username is required' }, { status: 400 });
+    return NextResponse.json({ 
+      error: (
+        <Alert>
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>Username is required</AlertDescription>
+        </Alert>
+      ) 
+    }, { status: 400 });
   }
 
   try {
     const user = await fetchUserByUsername(username);
 
     if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+      return NextResponse.json({ 
+        error: (
+          <Alert>
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>User not found</AlertDescription>
+          </Alert>
+        ) 
+      }, { status: 404 });
     }
 
     return NextResponse.json(user, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ 
+      error: (
+        <Alert>
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>Internal Server Error</AlertDescription>
+        </Alert>
+      ) 
+    }, { status: 500 });
   }
 }
 
@@ -56,7 +79,14 @@ export async function DELETE(request: NextRequest, { params }: Props) {
   const username = (await params).username;
 
   if (!username) {
-    return NextResponse.json({ error: 'Username is required' }, { status: 400 });
+    return NextResponse.json({ 
+      error: (
+        <Alert>
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>Username is required</AlertDescription>
+        </Alert>
+      ) 
+    }, { status: 400 });
   }
 
   try {
@@ -64,14 +94,34 @@ export async function DELETE(request: NextRequest, { params }: Props) {
     const snapshot = await get(userRef);
 
     if (!snapshot.exists()) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+      return NextResponse.json({ 
+        error: (
+          <Alert>
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>User not found</AlertDescription>
+          </Alert>
+        ) 
+      }, { status: 404 });
     }
 
     await remove(userRef);
-    return NextResponse.json({ message: 'User deleted successfully' }, { status: 200 });
+    return NextResponse.json({ 
+      message: (
+        <Alert>
+          <AlertTitle>Success</AlertTitle>
+          <AlertDescription>User deleted successfully</AlertDescription>
+        </Alert>
+      ) 
+    }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ 
+      error: (
+        <Alert>
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>Internal Server Error</AlertDescription>
+        </Alert>
+      ) 
+    }, { status: 500 });
   }
 }
-
 
