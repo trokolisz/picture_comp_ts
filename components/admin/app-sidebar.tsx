@@ -1,5 +1,7 @@
-"use client"
-import * as React from "react"
+"use client";
+
+import * as React from "react";
+import { usePathname } from "next/navigation";
 import {
   AudioWaveform,
   Scale,
@@ -13,11 +15,10 @@ import {
   SquareTerminal,
   Trophy,
   ArrowBigLeftDash,
-} from "lucide-react"
+} from "lucide-react";
 
-import { NavMain } from "@/components/admin/nav-main"
-
-import { NavUser } from "@/components/admin/nav-user"
+import { NavMain } from "@/components/admin/nav-main";
+import { NavUser } from "@/components/admin/nav-user";
 
 import {
   Sidebar,
@@ -25,21 +26,19 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
-// This is sample data.
 const data = {
   user: {
     name: "admin",
     role: "admin",
-    avatar: "/images/avatars/R.jpg", // Updated path
+    avatar: "/images/avatars/R.jpg",
   },
   navMain: [
     {
       title: "Versenyek",
-      url: "#",
+      url: "/admin/competitions",
       icon: Trophy,
-      isActive: true,
       items: [
         {
           title: "Összes verseny",
@@ -57,24 +56,22 @@ const data = {
           title: "Verseny létrehozása",
           url: "/admin/make_competitions",
         },
-        
       ],
     },
     {
       title: "Felhasználók",
-      url: "#",
+      url: "/admin/users",
       icon: Users,
       items: [
         {
           title: "Felhasználók Megtekintése",
           url: "/admin/users",
         },
-        
       ],
     },
     {
       title: "Bírók",
-      url: "#",
+      url: "/admin/judges",
       icon: Scale,
       items: [
         {
@@ -83,43 +80,57 @@ const data = {
         },
         {
           title: "Bíró Jelentkezések",
-          url: "#",
-        }
+          url: "/admin/judge_applications",
+        },
       ],
     },
     {
       title: "Publikus oldal",
-      url: "#",
+      url: "/admin/public",
       icon: Globe,
       items: [
         {
           title: "Szerkeszés",
-          url: "#",
+          url: "/admin/public/edit",
         },
         {
           title: "Verseny Hozzáadás",
-          url: "#",
+          url: "/admin/public/add_competition",
         },
-        
       ],
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname();
+
+  const isActive = (menuUrl: string, subItems: { url: string }[] = []) => {
+    return (
+      pathname.startsWith(menuUrl) ||
+      subItems.some((subItem) => pathname.startsWith(subItem.url))
+    );
+  };
+
+  const modifiedNavMain = data.navMain.map((menu) => ({
+    ...menu,
+    isActive: isActive(menu.url, menu.items),
+    items: menu.items.map((item) => ({
+      ...item,
+      isActive: pathname.startsWith(item.url),
+    })),
+  }));
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-      <NavUser user={data.user} />
+        <NavUser user={data.user} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-
+        <NavMain items={modifiedNavMain} />
       </SidebarContent>
-      <SidebarFooter>
-       
-      </SidebarFooter>
+      <SidebarFooter></SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

@@ -233,7 +233,7 @@ export const columns: ColumnDef<User>[] = [
           }
         } catch (error) {
           console.error(error);
-          alert(`An error occurred while ${action}ing the user.`);
+          alert(`An error occurred while ing the user.`); {/*Hibaüzenet miatt kivettem.. ${action}*/} 
         }
       };
   
