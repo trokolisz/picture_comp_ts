@@ -91,3 +91,26 @@ export async function POST(request: NextRequest) {
         return NextResponse.json('failed to create user', { status: 500 });
     }
 }
+
+// Törlés
+import { remove } from "firebase/database";
+export async function DELETE(
+    request: NextRequest,
+    { params }: { params: { username: string } }
+) {
+    const { username } = params;
+
+    if (!username) {
+        return NextResponse.json({ success: false, message: "Username is required" }, { status: 400 });
+    }
+
+    try {
+        const userRef = ref(database, `users/${username}`);
+        await remove(userRef);
+
+        return NextResponse.json({ success: true, message: `User ${username} deleted successfully` });
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        return NextResponse.json({ success: false, message: "Failed to delete user" }, { status: 500 });
+    }
+}

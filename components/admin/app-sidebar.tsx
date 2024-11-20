@@ -43,15 +43,15 @@ const data = {
       items: [
         {
           title: "Versenyek Megtekintése",
-          url: "#",
+          url: "/admin/competitions",
         },
         {
           title: "Archivált Versenyek",
-          url: "#",
+          url: "/admin/archived_competitions",
         },
         {
           title: "Verseny létrehozása",
-          url: "#",
+          url: "/admin/make_competitions",
         },
         
       ],
@@ -75,7 +75,7 @@ const data = {
       items: [
         {
           title: "Bírók Megtekintése",
-          url: "#",
+          url: "/admin/judges",
         },
         {
           title: "Bíró Jelentkezések",

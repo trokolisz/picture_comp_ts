@@ -25,8 +25,7 @@ async function getCompetitionsFromApi() {
     const data = await response.json();
     
     if (data.success) {
-      
-      return data.data;
+      return data.data.filter((competition: Competition) => competition.is_active === true);
     } else {
       console.error('Failed to fetch competitions:', data.message || 'Unknown error');
       return [];
