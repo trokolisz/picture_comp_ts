@@ -247,12 +247,12 @@ export const columns: ColumnDef<User>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {/*Felesleges és ront a kinézeten*/}
-            {/*</DropdownMenuContent>DropdownMenuLabel>Actions</DropdownMenuLabel>*/}
+            {/*</DropdownMenuContent>DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(user.username)}
             >
               Copy username
-            </DropdownMenuItem>
+            </DropdownMenuItem>*/}
             <DropdownMenuSeparator />
             {/*Törlés művelet*/}
             <DropdownMenuItem
