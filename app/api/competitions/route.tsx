@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { get, ref, set } from 'firebase/database';
+import { get, ref, set, remove } from 'firebase/database';
 import { database } from '../../../FirebaseConfig';
-import { any } from 'zod';
-import schema from "./schema";
+import schema from './schema';  // Ha van validációs sémád
 
 interface Competition {
     name: string;
@@ -16,13 +15,12 @@ interface Competition {
     num_teams?: number;
 }
 
+// Versenyek lekérése
 async function fetchCompetitions(): Promise<Competition[]> {
     const competitionsRef = ref(database, 'competition');
     const snapshot = await get(competitionsRef);
     if (snapshot.exists()) {
         const data = snapshot.val();
-
-
         return Object.entries(data).map(([key, value]) => {
             if (typeof value === 'object' && value !== null) {
                 return {
@@ -43,22 +41,30 @@ async function fetchCompetitions(): Promise<Competition[]> {
     }
 }
 
+// Verseny létrehozása
 async function createCompetition(data: Competition) {
     const newCompetitionRef = ref(database, `competition/${data.name}`);
     await set(newCompetitionRef, data);
 }
 
+// Verseny törléséhez
+async function deleteCompetition(name: string) {
+    const competitionRef = ref(database, `competition/${name}`);
+    await remove(competitionRef);
+}
+
+// `GET` kérés
 export async function GET() {
     try {
         const competitions = await fetchCompetitions();
-        return NextResponse.json({success: true, data: competitions}, { status: 200 });
+        return NextResponse.json({ success: true, data: competitions }, { status: 200 });
     } catch (error) {
         console.error('Error fetching competitions:', error);
         return NextResponse.json({ success: false, message: 'Failed to fetch competitions' }, { status: 500 });
     }
 }
 
-// API route handler for POST request
+// `POST` kérés
 export async function POST(request: NextRequest) {
     let body;
     try {
@@ -80,37 +86,31 @@ export async function POST(request: NextRequest) {
         description: validation.data.description,
         start_date: validation.data.start_date,
         end_date: validation.data.end_date,
-        is_active: false, 
+        is_active: false,
     };
 
     try {
         await createCompetition(competition);
-        return NextResponse.json( competition, { status: 201 });
+        return NextResponse.json(competition, { status: 201 });
     } catch (error) {
         console.error('Error creating competition:', error);
-        return NextResponse.json('failed to create user', { status: 500 });
+        return NextResponse.json({ success: false, message: 'Failed to create competition' }, { status: 500 });
     }
 }
 
-// Törlés
-import { remove } from "firebase/database";
-export async function DELETE(
-    request: NextRequest,
-    { params }: { params: { username: string } }
-) {
-    const { username } = params;
+// `DELETE` kérés verseny törléséhez
+export async function DELETE(request: NextRequest, { params }: { params: { name: string } }) {
+    const { name } = params;
 
-    if (!username) {
-        return NextResponse.json({ success: false, message: "Username is required" }, { status: 400 });
+    if (!name) {
+        return NextResponse.json({ success: false, message: 'Competition name is required' }, { status: 400 });
     }
 
     try {
-        const userRef = ref(database, `users/${username}`);
-        await remove(userRef);
-
-        return NextResponse.json({ success: true, message: `User ${username} deleted successfully` });
+        await deleteCompetition(name);
+        return NextResponse.json({ success: true, message: `Competition ${name} deleted successfully` });
     } catch (error) {
-        console.error("Error deleting user:", error);
-        return NextResponse.json({ success: false, message: "Failed to delete user" }, { status: 500 });
+        console.error('Error deleting competition:', error);
+        return NextResponse.json({ success: false, message: 'Failed to delete competition' }, { status: 500 });
     }
 }
