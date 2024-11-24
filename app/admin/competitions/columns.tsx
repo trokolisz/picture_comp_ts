@@ -5,15 +5,14 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-
 
 export type Competition = {
   name: string
@@ -32,37 +31,39 @@ export const columns: ColumnDef<Competition>[] = [
       <div
         style={{
           backgroundColor: "#52be80", 
-          color: "white",              
-          padding: "10px 15px",        
-          fontWeight: "bold",          
-          textAlign: "center",         
+          color: "white",
+          padding: "10px 15px",
+          fontWeight: "bold",
+          textAlign: "center",
           borderRadius: "5px",
           display: "flex",
-          alignItems: "center",          
-          width: "100%"               
+          alignItems: "center",
+          width: "100%",
+          textTransform: "uppercase",
+          minWidth: "120px",
         }}
       >
-         <Checkbox
-        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        style={{
-          marginRight: "10px", 
-          verticalAlign: "middle" 
-        }}
-      />
-      Select All
-    </div>
-  ),
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+          style={{
+            marginRight: "10px",
+            verticalAlign: "middle"
+          }}
+        />
+        Select All
+      </div>
+    ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
         style={{
-          backgroundColor: row.getIsSelected() ? "#52be80" : "", 
-          borderColor: row.getIsSelected() ? "#52be80" : "",     
-          color: row.getIsSelected() ? "white" : "",              
+          backgroundColor: row.getIsSelected() ? "#52be80" : "",
+          borderColor: row.getIsSelected() ? "#52be80" : "",
+          color: row.getIsSelected() ? "white" : "",
         }}
       />
     ),
@@ -74,12 +75,17 @@ export const columns: ColumnDef<Competition>[] = [
     header: () => (
       <div
         style={{
-          backgroundColor: "#52be80",
+          backgroundColor: "#52be80", 
           color: "white",
           padding: "10px 15px",
           fontWeight: "bold",
           textAlign: "center",
           borderRadius: "5px",
+          height: "100%",  
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minWidth: "120px",
         }}
       >
         Name
@@ -98,6 +104,11 @@ export const columns: ColumnDef<Competition>[] = [
           fontWeight: "bold",
           textAlign: "center",
           borderRadius: "5px",
+          height: "100%",  
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minWidth: "120px",
         }}
       >
         Description
@@ -110,12 +121,17 @@ export const columns: ColumnDef<Competition>[] = [
     header: () => (
       <div
         style={{
-          backgroundColor: "#52be80",
+          backgroundColor: "#52be80", 
           color: "white",
           padding: "10px 15px",
           fontWeight: "bold",
           textAlign: "center",
           borderRadius: "5px",
+          height: "100%",  
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minWidth: "120px",
         }}
       >
         Start Date
@@ -128,12 +144,17 @@ export const columns: ColumnDef<Competition>[] = [
     header: () => (
       <div
         style={{
-          backgroundColor: "#52be80",
+          backgroundColor: "#52be80", 
           color: "white",
           padding: "10px 15px",
           fontWeight: "bold",
           textAlign: "center",
           borderRadius: "5px",
+          height: "100%",  
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minWidth: "120px",
         }}
       >
         End Date
@@ -146,12 +167,17 @@ export const columns: ColumnDef<Competition>[] = [
     header: () => (
       <div
         style={{
-          backgroundColor: "#52be80",
+          backgroundColor: "#52be80", 
           color: "white",
           padding: "10px 15px",
           fontWeight: "bold",
           textAlign: "center",
           borderRadius: "5px",
+          height: "100%",  
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minWidth: "120px",
         }}
       >
         Active
@@ -166,12 +192,17 @@ export const columns: ColumnDef<Competition>[] = [
     header: () => (
       <div
         style={{
-          backgroundColor: "#52be80",
+          backgroundColor: "#52be80", 
           color: "white",
           padding: "10px 15px",
           fontWeight: "bold",
           textAlign: "center",
           borderRadius: "5px",
+          height: "100%",  
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minWidth: "120px",
         }}
       >
         Number of Judges
@@ -184,12 +215,17 @@ export const columns: ColumnDef<Competition>[] = [
     header: () => (
       <div
         style={{
-          backgroundColor: "#52be80",
+          backgroundColor: "#52be80", 
           color: "white",
           padding: "10px 15px",
           fontWeight: "bold",
           textAlign: "center",
           borderRadius: "5px",
+          height: "100%",  
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minWidth: "120px",
         }}
       >
         Number of Teams
@@ -212,13 +248,6 @@ export const columns: ColumnDef<Competition>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {/*Felesleges és ront a kinézeten*/}
-            {/*</DropdownMenuContent>DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(competition.name)}
-            >
-              Copy competition name
-            </DropdownMenuItem>*/}
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => window.location.href = `/admin/competitions/${competition.name}`}>
               View competition details
@@ -228,5 +257,4 @@ export const columns: ColumnDef<Competition>[] = [
       )
     },
   },
-]
-
+];

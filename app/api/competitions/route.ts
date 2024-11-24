@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { get, ref, set } from 'firebase/database';
+import { get, ref, set, remove } from 'firebase/database';
 import { database } from '../../../FirebaseConfig';
 import { any } from 'zod';
 import schema from "./schema";
@@ -92,8 +92,8 @@ export async function POST(request: NextRequest) {
     }
 }
 
-// Törlés
-import { remove } from "firebase/database";
+
+
 export async function DELETE(
     request: NextRequest,
     { params }: { params: { username: string } }

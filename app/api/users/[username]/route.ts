@@ -1,8 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { database } from '../../../../FirebaseConfig';
 import { ref, child, get, DatabaseReference, remove as firebaseRemove } from 'firebase/database';
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
-import { Button } from "@/components/ui/button"
 
 interface User {
   username: string;
@@ -18,7 +16,7 @@ interface Props {
   params: Promise<{ username: string; }>
 }
 
-export async function fetchUserByUsername(username: string): Promise<User | null> {
+async function fetchUserByUsername(username: string): Promise<User | null> {
   const userRef = ref(database, `users/${username}`);
   const snapshot = await get(userRef);
 
@@ -39,12 +37,7 @@ export async function GET(request: NextRequest, { params }: Props) {
 
   if (!username) {
     return NextResponse.json({ 
-      error: (
-        <Alert>
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>Username is required</AlertDescription>
-        </Alert>
-      ) 
+      error: "Username is required" 
     }, { status: 400 });
   }
 
@@ -52,25 +45,13 @@ export async function GET(request: NextRequest, { params }: Props) {
     const user = await fetchUserByUsername(username);
 
     if (!user) {
-      return NextResponse.json({ 
-        error: (
-          <Alert>
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>User not found</AlertDescription>
-          </Alert>
-        ) 
-      }, { status: 404 });
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
     return NextResponse.json(user, { status: 200 });
   } catch (error) {
     return NextResponse.json({ 
-      error: (
-        <Alert>
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>Internal Server Error</AlertDescription>
-        </Alert>
-      ) 
+      error: "Internal Server Error" 
     }, { status: 500 });
   }
 }
@@ -80,12 +61,7 @@ export async function DELETE(request: NextRequest, { params }: Props) {
 
   if (!username) {
     return NextResponse.json({ 
-      error: (
-        <Alert>
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>Username is required</AlertDescription>
-        </Alert>
-      ) 
+      error: "Username is required" 
     }, { status: 400 });
   }
 
@@ -95,32 +71,17 @@ export async function DELETE(request: NextRequest, { params }: Props) {
 
     if (!snapshot.exists()) {
       return NextResponse.json({ 
-        error: (
-          <Alert>
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>User not found</AlertDescription>
-          </Alert>
-        ) 
+        error: "User not found" 
       }, { status: 404 });
     }
 
     await remove(userRef);
     return NextResponse.json({ 
-      message: (
-        <Alert>
-          <AlertTitle>Success</AlertTitle>
-          <AlertDescription>User deleted successfully</AlertDescription>
-        </Alert>
-      ) 
+      message: "User deleted successfully" 
     }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ 
-      error: (
-        <Alert>
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>Internal Server Error</AlertDescription>
-        </Alert>
-      ) 
+      error: "Internal Server Error" 
     }, { status: 500 });
   }
 }

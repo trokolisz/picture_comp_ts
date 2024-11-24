@@ -20,19 +20,25 @@ async function createCompetition(competitionData: {
   start_date: string;
   end_date: string;
 }) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/competitions`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(competitionData),
-  });
+  try {
 
-  const data = await response.json();
-  if (data.success) {
-    console.log("Competition created:", data);
-  } else {
-    console.error("Failed to create competition:", data.message || "Unknown error");
+    const response = await fetch('/api/competitions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(competitionData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to create competition: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error creating competition:', error);
+    throw error;
   }
 }
 
@@ -42,25 +48,30 @@ export default function CreateCompetitionPage() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const router = useRouter();
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const competitionData = {
-      name,
-      description,
-      start_date: startDate,
-      end_date: endDate,
-    };
-
-    await createCompetition(competitionData);
-    router.push("/admin/competitions");
+    try {
+      const competitionData = {
+        name,
+        description,
+        start_date: startDate,
+        end_date: endDate,
+      };
+      
+      await createCompetition(competitionData);
+      router.push("/admin/competitions");
+    } catch (error) {
+      console.error('Failed to create competition:', error);
+      // You might want to add error handling UI here
+    }
   };
 
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-        <div className="flex items-center gap-2 px-4">
+        <div className="flex items-center gap-2 px-4 w-full">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>

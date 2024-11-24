@@ -1,18 +1,14 @@
 import React from 'react'
 import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-  } from "@/components/ui/breadcrumb"
-  import { Separator } from "@/components/ui/separator"
-  import {
-    SidebarTrigger,
-  } from "@/components/ui/sidebar"
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
-  import LightDarkSwitch  from "@/components/light-dark-switch";
+
+import LightDarkSwitch from "@/components/light-dark-switch";
 
 interface HeadProps {
   data: string;
@@ -26,9 +22,9 @@ const Head = ({ data }: HeadProps) => {
   const slugParts = data.split('/').filter(Boolean);
 
   return (
-  
+    <div className='w-full'>
       <header className="flex h-16 shrink-0 items-center gap-2 justify-between transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-        <div className="flex items-center gap-2 px-4">          
+        <div className="flex items-center gap-2 px-4 w-full">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
@@ -49,10 +45,10 @@ const Head = ({ data }: HeadProps) => {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <div className="flex items-center gap-2 px-4">
-          <LightDarkSwitch />
-        </div>
+        <LightDarkSwitch />
       </header>
+      
+    </div>
 
   )
 }

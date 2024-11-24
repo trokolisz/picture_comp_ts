@@ -101,8 +101,8 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
+    <Sidebar collapsible="icon" {...props} className="max-w-full">
+      <SidebarHeader className="max-w-full">
       <NavUser user={data.user} />
       </SidebarHeader>
       <SidebarContent>

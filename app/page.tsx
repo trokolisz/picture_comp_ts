@@ -1,19 +1,19 @@
 import Head from "@/components/header";
+import dynamic from 'next/dynamic';
+import NavMenu from "@/components/navbar";
+// const DynamicMap = dynamic(() => import('@/components/Map'), { ssr: false });
 
 export default function Home() {
   return (
     <div className="grid ">
-      <Head data="" />
+      
 
-      <header className="flex justify-between items-center p-4 bg-[#52be80] text-white">
-        <div className="text-2xl font-bold">Gombakereső</div>
-        <nav className="flex gap-4 justify-center flex-1">
-          <a href="/about" className="hover:text-gray-200">About</a>
-          <a href="/contact" className="hover:text-gray-200">Contact</a>
-          <a href="/map" className="hover:text-gray-200">Map</a>
-          <a href="/login" className="hover:text-gray-200">Log in</a>
-        </nav>
-      </header>
+      <header className="flex flex-col md:flex-row justify-between items-center p-4 bg-gradient-to-r from-green-400 to-blue-500 text-white shadow-lg rounded-b-lg">
+        <h1 className="text-2xl font-bold text-center">Picture Competition</h1>
+        <NavMenu />
+
+      </header>          
+
 
 
 
