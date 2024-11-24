@@ -10,18 +10,19 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import MapComponent from "@/components/MapComponent"; // Importáld a térkép komponenst
+import MapComponent from "@/components/MapComponent";
 
 export default function MapPage() {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    // Adatok lekérése API-ból
     const fetchLocations = async () => {
       try {
-        const response = await fetch("/app/api/locations");
+        const response = await fetch("/api/locations");
         const data = await response.json();
-        setLocations(data);
+        if (data.success) {
+          setLocations(data.data); 
+        }
       } catch (error) {
         console.error("Failed to fetch locations:", error);
       }
@@ -55,7 +56,7 @@ export default function MapPage() {
       </header>
       <div>
         {/* Térkép megjelenítése */}
-        <MapComponent/>
+        <MapComponent />
       </div>
     </>
   );

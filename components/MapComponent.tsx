@@ -1,58 +1,42 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-import { ref, onValue } from 'firebase/database';
-import { database } from '../FirebaseConfig';
-
-const MapContainer = dynamic(() => import('react-leaflet').then((mod) => mod.MapContainer), { ssr: false });
-const TileLayer = dynamic(() => import('react-leaflet').then((mod) => mod.TileLayer), { ssr: false });
-const Marker = dynamic(() => import('react-leaflet').then((mod) => mod.Marker), { ssr: false });
-const Popup = dynamic(() => import('react-leaflet').then((mod) => mod.Popup), { ssr: false });
-
-interface Location {
-  latitude: number;
-  longitude: number;
-  title: string;
-}
+import { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import axios from "axios";
+import 'leaflet/dist/leaflet.css'; 
 
 const MapComponent = () => {
-  const [locations, setLocations] = useState<Location[]>([]);
+ const [locations, setLocations] = useState<{ latitude: number, longitude: number, title: string }[]>([]);
 
   useEffect(() => {
-    const photosRef = ref(database, 'competition');
-    const unsubscribe = onValue(photosRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const locationsData = Object.values(data)
-          .flatMap((competition: any) =>
-            Object.values(competition.teams || {}).flatMap((team: any) =>
-              Object.values(team.photos || {}).map((photo: any) => ({
-                latitude: parseFloat(photo.latitude),
-                longitude: parseFloat(photo.longitude),
-                title: photo.title,
-              }))
-            )
-          );
-        setLocations(locationsData);
+    const fetchLocations = async () => {
+      try {
+        const response = await axios.get("/api/locations");
+        if (response.data.success) {
+          const locationsData = response.data.data.map((item: any) => ({
+            latitude: parseFloat(item.latitude),
+            longitude: parseFloat(item.longitude),
+            title: item.title,
+          }));
+          setLocations(locationsData);
+        }
+      } catch (error) {
+        console.error("Error fetching locations:", error);
       }
-    });
+    };
 
-    return () => unsubscribe();
+    fetchLocations();
   }, []);
 
-  const getCenter = (locations: Location[]): [number, number] => {
+  const getCenter = (locations: { latitude: number, longitude: number }[]): [number, number] => {
     if (locations.length === 0) {
-      return [47.25, 17.83];
+      return [47.25, 17.83]; 
     }
-    const total = locations.reduce(
-      (acc, loc) => {
-        acc.lat += loc.latitude;
-        acc.lng += loc.longitude;
-        return acc;
-      },
-      { lat: 0, lng: 0 }
-    );
+    const total = locations.reduce((acc, loc) => {
+      acc.lat += loc.latitude;
+      acc.lng += loc.longitude;
+      return acc;
+    }, { lat: 0, lng: 0 });
 
     return [total.lat / locations.length, total.lng / locations.length];
   };
@@ -60,7 +44,7 @@ const MapComponent = () => {
   const center = getCenter(locations);
 
   return (
-    <MapContainer center={center} zoom={6} style={{ height: '500px' }}>
+    <MapContainer center={center} zoom={6} style={{ height: "500px" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
