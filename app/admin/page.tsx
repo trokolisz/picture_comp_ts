@@ -41,7 +41,7 @@ export default function Page() {
               onMouseEnter={() => setIsUsersHovered(true)}
               onMouseLeave={() => setIsUsersHovered(false)}
               className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-                ${isUsersHovered ? "bg-[#52be80] scale-105 shadow-lg" : "bg-muted/50 shadow-md"}`}
+                ${isUsersHovered ? "bg-[#52be80] scale-105 shadow-lg" : "bg-[#abb2b9] shadow-md"}`}
                 >
               <Users className="text-4xl mb-2 text-black " />
               <h3 className="text-xl font-semibold text-black ">Manage Users</h3>
@@ -56,11 +56,11 @@ export default function Page() {
               onMouseEnter={() => setIsJudgesHovered(true)}
               onMouseLeave={() => setIsJudgesHovered(false)}
               className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-              ${isJudgesHovered ? "bg-[#52be80] scale-105" : "bg-muted/50"}`}
+              ${isJudgesHovered ? "bg-[#52be80] scale-105 shadow-lg" : "bg-[#abb2b9] shadow-md"}`}
             >
               <Gavel className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Manage Judges</h3>
-              <p className="text-sm text-muted-foreground text-black">Add, edit, or remove judges</p>
+              <p className="text-sm text-black">Add, edit, or remove judges</p>
               <Button variant="outline" className="mt-4">Go</Button>
             </div>
           </Link>
@@ -71,11 +71,11 @@ export default function Page() {
               onMouseEnter={() => setIsCompetitionsHovered(true)}
               onMouseLeave={() => setIsCompetitionsHovered(false)}
               className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-              ${isCompetitionsHovered ? "bg-[#52be80] scale-105" : "bg-muted/50"}`}
+              ${isCompetitionsHovered ? "bg-[#52be80] scale-105 shadow-lg" : "bg-[#abb2b9] shadow-md"}`}
             >
               <Trophy className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Manage Competitions</h3>
-              <p className="text-sm text-muted-foreground text-black">Create and manage competitions</p>
+              <p className="text-sm text-black">Create and manage competitions</p>
               <Button variant="outline" className="mt-4">Go</Button>
             </div>
           </Link>
@@ -86,11 +86,11 @@ export default function Page() {
               onMouseEnter={() => setIsSettingsHovered(true)}
               onMouseLeave={() => setIsSettingsHovered(false)}
               className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-              ${isSettingsHovered ? "bg-[#52be80] scale-105" : "bg-muted/50"}`}
+              ${isSettingsHovered ? "bg-[#52be80] scale-105 shadow-lg" : "bg-[#abb2b9] shadow-md"}`}
             >
               <Settings className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Settings</h3>
-              <p className="text-sm text-muted-foreground text-black">Configure application settings</p>
+              <p className="text-sm text-black">Configure application settings</p>
               <Button variant="outline" className="mt-4">Go</Button>
             </div>
           </Link>

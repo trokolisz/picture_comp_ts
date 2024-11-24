@@ -92,6 +92,18 @@ export async function POST(request: NextRequest) {
     }
 }
 
+// export async function GET() {
+//     try {
+//         const competitions = await fetchCompetitions();
+
+//         const activeCompetitions = competitions.filter(comp => comp.is_active);
+
+//         return NextResponse.json({ success: true, data: activeCompetitions }, { status: 200 });
+//     } catch (error) {
+//         console.error('Error fetching competitions:', error);
+//         return NextResponse.json({ success: false, message: 'Failed to fetch competitions' }, { status: 500 });
+//     }
+// }
 
 
 export async function DELETE(

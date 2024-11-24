@@ -4,7 +4,7 @@
 
 :root {
   --foreground-rgb: 85, 107, 47;
-  --background: #E5E7EB;
+  --background: #e8f6f3;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,6 +18,7 @@
     background-color: white;
   }
 }
+
 
 body {
   margin: 0;

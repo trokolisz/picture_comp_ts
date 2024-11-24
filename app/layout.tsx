@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Metadata } from "next";
-import "./globals.css";
-import { Inter, Montserrat } from 'next/font/google'
-
-import { Suspense } from 'react'
+import { Inter, Montserrat } from 'next/font/google';
+import { Suspense } from 'react';
+import './globals.css';
+import NavMenu from "@/components/navbar"; 
 
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-montserrat" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-
 
 export const metadata: Metadata = {
   title: "Picture Competition",
@@ -17,25 +15,15 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-
-    <html lang="en" className={`${inter.variable} ${montserrat.variable} bg-[#e5e8e8]`}>
-      <body className="bg-[#e8f6f3] font-sans">
-        <Suspense fallback={
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh'
-          }}>
-            <div className="loader"></div>
-          </div>
-        }>
+    <html lang="en" className={`${inter.variable} ${montserrat.variable} bg-[#e8f6f3]`}>
+      <body className="bg-[#e8f6f3] min-h-screen"> 
+        <Suspense fallback={<div>Loading...</div>}>
           {children}
         </Suspense>
       </body>
     </html>
-  )
+  );
 }

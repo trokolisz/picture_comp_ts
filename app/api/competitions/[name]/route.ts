@@ -31,20 +31,20 @@ async function fetchCompetitionByName(name: string): Promise<Competition | null>
     if (snapshot.exists()) {
         const compData = snapshot.val() as Competition;
 
-
         return {
             name: compData.name,
             description: compData.description,
             start_date: compData.start_date,
             end_date: compData.end_date,
-            judges: compData.judges,
-            is_active: compData.is_active,
-            teams: compData.teams
-
-            
+            judges: compData.judges || [],
+            is_active: compData.is_active ?? false,
+            teams: compData.teams ? Object.values(compData.teams).map(team => ({
+                ...team,
+                members: team.members || [],
+                photos: team.photos || {},
+            })) : []
         };
     }
-
 
     return null;
 }
