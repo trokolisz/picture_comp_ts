@@ -27,7 +27,7 @@ const UserDetailPage = async ({ params }: Props) => {
     if (!response.ok) {
         notFound();
     }
-
+    
     return (
         <div className="container mx-auto p-4">
             <Card>

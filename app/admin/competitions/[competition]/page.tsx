@@ -47,10 +47,14 @@ const CompetitionPage = async ({ params }: Props) => {
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 ">
           <div className="grid auto-rows-min gap-4 md:grid-cols-3 ">
             <div className="aspect-video rounded-xl bg-muted/50 hover:bg-[#52be80]">
-              Doboz 1
+              {comp.name}
             </div>
             <div className="aspect-video rounded-xl bg-muted/50 hover:bg-[#52be80]" >
-              Doboz 2
+              {comp.teams.team_3.photos.photo_3.latitude}
+
+              <div>...</div>
+              {comp.teams.team_3.photos.photo_3.longitude}
+            
             </div>
             <div className="aspect-video rounded-xl bg-muted/50 hover:bg-[#52be80]" >
               Doboz 3
