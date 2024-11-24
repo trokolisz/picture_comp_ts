@@ -84,7 +84,7 @@ const data = {
         },
       ],
     },
-    {
+        {
       title: "Publikus oldal",
       url: "/admin/public",
       icon: Globe,
@@ -97,6 +97,30 @@ const data = {
           title: "Verseny Hozzáadás",
           url: "/admin/public/add_competition",
         },
+      ],
+    },
+    {
+      title: "Térkép",
+      url: "/admin/map",
+      /*Kell új logo talán Map-pin*/     
+      icon: Globe, 
+      items: [
+        {
+          title: "Térkép",
+          url: "/admin/map",
+        }
+      ],
+    },
+    {
+      title: "Statisztika",
+      url: "/admin/stat",
+      /*Kell új logo */     
+      icon: Globe,       
+      items: [
+        {
+          title: "Statisztika",
+          url: "/admin/stat",
+        }
       ],
     },
   ],
