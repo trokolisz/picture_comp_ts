@@ -54,7 +54,7 @@ export default function CreateCompetitionPage() {
     };
 
     await createCompetition(competitionData);
-    router.push("/admin/archived_competitions");
+    router.push("/admin/competitions");
   };
 
   return (
