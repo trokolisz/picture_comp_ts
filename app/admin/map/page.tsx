@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -10,7 +10,12 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import MapComponent from "@/components/MapComponent";
+
+//import  MapComponent from "@/components/MapComponent";
+
+import dynamic from 'next/dynamic';
+const MapComponent = dynamic(() => import('@/components/MapComponent'), { ssr: false });
+
 
 export default function MapPage() {
   const [locations, setLocations] = useState([]);
@@ -48,7 +53,7 @@ export default function MapPage() {
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">Statisztika</BreadcrumbLink>
+                <BreadcrumbLink href="#">Térkép</BreadcrumbLink>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
