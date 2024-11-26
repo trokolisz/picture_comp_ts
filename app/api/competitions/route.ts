@@ -17,7 +17,7 @@ interface Competition {
 }
 
 async function fetchCompetitions(): Promise<Competition[]> {
-    const competitionsRef = ref(database, 'competition');
+    const competitionsRef = ref(database, 'competitions');
     const snapshot = await get(competitionsRef);
     if (snapshot.exists()) {
         const data = snapshot.val();
