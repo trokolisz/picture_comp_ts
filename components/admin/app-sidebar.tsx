@@ -122,7 +122,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }));
 
   return (
-    <Sidebar collapsible="icon" className = 'bg-[#e8f6f3]' {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <NavUser user={data.user} />
       </SidebarHeader>
