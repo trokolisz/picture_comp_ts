@@ -41,12 +41,12 @@ export default function Page() {
               onMouseEnter={() => setIsUsersHovered(true)}
               onMouseLeave={() => setIsUsersHovered(false)}
               className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-                ${isUsersHovered ? "bg-[#52be80] scale-105 shadow-lg" : "bg-[#abb2b9] shadow-md"}`}
+                ${isUsersHovered ? "dark:bg-primary bg-primary/80 dark:text-primary-foreground text-primary-foreground scale-105 shadow-lg" : "dark:bg-muted bg-muted/80 dark:text-muted-foreground text-muted-foreground shadow-md"}`}
                 >
-              <Users className="text-4xl mb-2 text-black " />
-              <h3 className="text-xl font-semibold text-black ">Manage Users</h3>
-              <p className="text-sm text-black">Add, edit, or remove users</p>
-              <Button variant="outline" className="mt-4 text-black">Go</Button>
+              <Users className="text-4xl mb- " />
+              <h3 className="text-xl font-semibold ">Manage Users</h3>
+              <p className="text-sm">Add, edit, or remove users</p>
+              <Button variant="outline" className="mt-4">Go</Button>
             </div>
           </Link>
 
@@ -56,11 +56,11 @@ export default function Page() {
               onMouseEnter={() => setIsJudgesHovered(true)}
               onMouseLeave={() => setIsJudgesHovered(false)}
               className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-              ${isJudgesHovered ? "bg-[#52be80] scale-105 shadow-lg" : "bg-[#abb2b9] shadow-md"}`}
+              ${isJudgesHovered ?  "dark:bg-primary bg-primary/80 dark:text-primary-foreground text-primary-foreground scale-105 shadow-lg" : "dark:bg-muted bg-muted/80 dark:text-muted-foreground text-muted-foreground shadow-md"}`}
             >
               <Gavel className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Manage Judges</h3>
-              <p className="text-sm text-black">Add, edit, or remove judges</p>
+              <p className="text-sm ">Add, edit, or remove judges</p>
               <Button variant="outline" className="mt-4">Go</Button>
             </div>
           </Link>
@@ -71,11 +71,11 @@ export default function Page() {
               onMouseEnter={() => setIsCompetitionsHovered(true)}
               onMouseLeave={() => setIsCompetitionsHovered(false)}
               className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-              ${isCompetitionsHovered ? "bg-[#52be80] scale-105 shadow-lg" : "bg-[#abb2b9] shadow-md"}`}
+              ${isCompetitionsHovered ? "dark:bg-primary bg-primary/80 dark:text-primary-foreground text-primary-foreground scale-105 shadow-lg" : "dark:bg-muted bg-muted/80 dark:text-muted-foreground text-muted-foreground shadow-md"}`}
             >
               <Trophy className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Manage Competitions</h3>
-              <p className="text-sm text-black">Create and manage competitions</p>
+              <p className="text-sm ">Create and manage competitions</p>
               <Button variant="outline" className="mt-4">Go</Button>
             </div>
           </Link>
@@ -86,12 +86,12 @@ export default function Page() {
               onMouseEnter={() => setIsSettingsHovered(true)}
               onMouseLeave={() => setIsSettingsHovered(false)}
               className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-              ${isSettingsHovered ? "bg-[#52be80] scale-105 shadow-lg" : "bg-[#abb2b9] shadow-md"}`}
+              ${isSettingsHovered ? "dark:bg-primary bg-primary/80 dark:text-primary-foreground text-primary-foreground scale-105 shadow-lg" : "dark:bg-muted bg-muted/80 dark:text-muted-foreground text-muted-foreground shadow-md"}`}
             >
               <Settings className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Settings</h3>
-              <p className="text-sm text-black">Configure application settings</p>
-              <Button variant="outline" className="mt-4">Go</Button>
+              <p className="text-sm ">Configure application settings</p>
+              <Button variant="outline" className="mt-4 dark:bg-primary bg-primary/80 dark:text-primary-foreground text-primary-foreground hover:bg-secondary">Go</Button>
             </div>
           </Link>
 

@@ -18,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${montserrat.variable} bg-[#e8f6f3]`}>
-      <body className="bg-[#e8f6f3] min-h-screen"> 
+    <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
+      <body className="min-h-screen"> 
         <Suspense fallback={<div>Loading...</div>}>
           {children}
         </Suspense>

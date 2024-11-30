@@ -25,7 +25,7 @@ interface Props {
   }
 
 async function fetchCompetitionByName(name: string): Promise<Competition | null> {
-    const compRef = ref(database, `competition/${name}`);
+    const compRef = ref(database, `competitions/${name}`);
     const snapshot = await get(compRef);
 
     if (snapshot.exists()) {
