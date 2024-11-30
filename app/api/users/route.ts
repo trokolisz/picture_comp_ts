@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { get, ref, set } from 'firebase/database';
 import { database } from '../../../FirebaseConfig';
-import schema from "./schema";
+import { getAuth, createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
+import schema from './schema';
 
 interface User {
     username: string;
@@ -14,7 +16,6 @@ interface User {
     updated_at: string;
 }
 
-// Function to fetch users from Firebase
 async function fetchUsers(): Promise<User[]> {
     const userRef = ref(database, 'users');
     const snapshot = await get(userRef);
@@ -37,22 +38,33 @@ async function fetchUsers(): Promise<User[]> {
     return usersArray;
 }
 
-// Function to create a new user in Firebase
+async function createUserInAuth(email: string, password: string): Promise<void> {
+    const auth = getAuth();
+    try {
+        await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+        console.error("Error creating user in Firebase Auth:", error);
+        throw error;
+    }
+}
+
 async function createUser(user: User): Promise<void> {
     const userRef = ref(database, `users/${user.username}`);
     await set(userRef, user);
 }
 
-// Function to check if a user exists in Firebase
+async function emailExists(email: string): Promise<boolean> {
+    const auth = getAuth();
+    const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+    return signInMethods.length > 0;
+}
+
 async function userExists(username: string): Promise<boolean> {
     const userRef = ref(database, `users/${username}`);
     const snapshot = await get(userRef);
     return snapshot.exists();
 }
 
-
-
-// API route handler for GET request
 export async function GET() {
     try {
         const users = await fetchUsers();
@@ -63,7 +75,6 @@ export async function GET() {
     }
 }
 
-// API route handler for POST request
 export async function POST(request: NextRequest) {
     let body;
     try {
@@ -81,6 +92,13 @@ export async function POST(request: NextRequest) {
     }
 
     const username = validation.data.username;
+    const email = validation.data.email;
+
+    if (await emailExists(email)) {
+        console.log(`Email ${email} already exists.`);
+        return NextResponse.json({ success: false, message: 'Email already exists' }, { status: 400 });
+    }
+
     if (await userExists(username)) {
         return NextResponse.json({ success: false, message: 'Username already exists' }, { status: 400 });
     }
@@ -97,10 +115,18 @@ export async function POST(request: NextRequest) {
     }
 
     try {
+        await createUserInAuth(user.email, user.password);
         await createUser(user);
         return NextResponse.json({ success: true, message: 'User created successfully' });
-    } catch (error) {
+    } catch (error: unknown) {
         console.error('Error creating user:', error);
+
+        if (error instanceof FirebaseError) {
+            if (error.code === 'auth/email-already-in-use') {
+                return NextResponse.json({ success: false, message: 'Email already exists' }, { status: 400 });
+            }
+        }
+
         return NextResponse.json({ success: false, message: 'Failed to create user' }, { status: 500 });
     }   
 }
