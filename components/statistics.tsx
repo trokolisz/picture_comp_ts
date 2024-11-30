@@ -14,14 +14,11 @@ export default function StatisticsSection() {
   useEffect(() => {
     async function fetchStatistics() {
       try {
-        const response = await fetch("/api/getPhotos");
+        const response = await fetch("/api/getPhotos"); 
         const data = await response.json();
 
         if (data.success) {
-          setStatistics({
-            totalPhotosUploaded: data.totalPhotosUploaded,
-            totalPhotosUploadedInLast7Days: data.totalPhotosUploadedInLast7Days,
-          });
+          setStatistics(data.data);
         } else {
           setError(data.message || "Failed to fetch statistics");
         }
@@ -45,7 +42,7 @@ export default function StatisticsSection() {
 
   return (
     <section className="p-8 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-4">Statistics</h2>
+      <h2 className="text-3xl font-bold text-center mb-4">Statistics</h2>
       <div className="flex justify-around">
         <div>
           <h3 className="text-xl font-semibold">Total Photos Uploaded</h3>

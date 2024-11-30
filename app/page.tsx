@@ -203,7 +203,9 @@ export default async function Home() {
       <br/>
 
       {/* Statistics Section */}
-      <StatisticsSection />
+      <section className="bg-[#e8f6f3] p-8">
+        <StatisticsSection />
+      </section>
 
       <br/>
 
