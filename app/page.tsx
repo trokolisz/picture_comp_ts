@@ -2,6 +2,7 @@ import NavMenu from "@/components/navbar";
 import { UploadCloud, Trophy, ArrowRightCircle } from "lucide-react";
 import { cookies } from 'next/headers';
 import SubmissionCarousel from '@/components/SubmissionCarousel';
+import StatisticsSection from "@/components/statistics";
 
 interface Submission {
   participant: string;
@@ -198,6 +199,13 @@ export default async function Home() {
           )}
         </div>
       </section>
+
+      <br/>
+
+      {/* Statistics Section */}
+      <StatisticsSection />
+
+      <br/>
 
       {/* Placeholder Section */}
       <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
