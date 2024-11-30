@@ -89,6 +89,7 @@ export function LoginForm() {
               required
             />
           </div>
+          {/*Nincs kidolgozva -> Authentication*/}
           <div className="grid gap-2">
             <div className="flex items-center">
               <Label htmlFor="password">Password</Label>
@@ -107,6 +108,7 @@ export function LoginForm() {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? 'Loading...' : 'Login'}
           </Button>
+          {/*Nincs kidolgozva -> Authentication*/}
           <Button variant="outline" className="w-full">
             Login with Google
           </Button>

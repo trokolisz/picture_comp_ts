@@ -10,6 +10,7 @@ interface User {
     full_name: string;
     email: string;
     is_active: boolean;
+    isJudgePending?: boolean;
     password: string;
     role?: 'admin' | 'judge' | 'competitor';
     created_at: string;
@@ -77,6 +78,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
     let body;
+
     try {
         if (!request.body) {
             return NextResponse.json({ success: false, message: 'Request body is null' }, { status: 400 });
@@ -91,8 +93,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ success: false, message: validation.error.errors }, { status: 400 });
     }
 
-    const username = validation.data.username;
-    const email = validation.data.email;
+    const { username, email, password, full_name, role, isJudgePending } = validation.data;
 
     if (await emailExists(email)) {
         console.log(`Email ${email} already exists.`);
@@ -103,16 +104,17 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ success: false, message: 'Username already exists' }, { status: 400 });
     }
 
-    const user = {
-        username: validation.data.username,
-        full_name: validation.data.full_name,
-        email: validation.data.email,
+    const user: User = {
+        username,
+        full_name,
+        email,
         is_active: true,
-        password: validation.data.password, 
-        role: validation.data.role ? validation.data.role : 'competitor',
+        password,
+        role: role || 'competitor',
+        isJudgePending: isJudgePending || false,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-    }
+    };
 
     try {
         await createUserInAuth(user.email, user.password);
@@ -128,5 +130,5 @@ export async function POST(request: NextRequest) {
         }
 
         return NextResponse.json({ success: false, message: 'Failed to create user' }, { status: 500 });
-    }   
+    }
 }
