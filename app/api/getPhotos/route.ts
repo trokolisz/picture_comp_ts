@@ -14,9 +14,14 @@ interface Competition {
   teams?: Record<string, Team>;
 }
 
+interface DailyPhotoStatistics {
+  [date: string]: number; 
+}
+
 interface PhotoStatistics {
   totalPhotosUploaded: number;
   totalPhotosUploadedInLast7Days: number;
+  dailyPhotoUploads: DailyPhotoStatistics;
 }
 
 async function fetchPhotoStatistics(): Promise<PhotoStatistics> {
@@ -25,7 +30,11 @@ async function fetchPhotoStatistics(): Promise<PhotoStatistics> {
 
   if (!snapshot.exists()) {
     console.log('No competitions available');
-    return { totalPhotosUploaded: 0, totalPhotosUploadedInLast7Days: 0 };
+    return {
+      totalPhotosUploaded: 0,
+      totalPhotosUploadedInLast7Days: 0,
+      dailyPhotoUploads: {},
+    };
   }
 
   const data: Record<string, Competition> = snapshot.val();
@@ -34,41 +43,60 @@ async function fetchPhotoStatistics(): Promise<PhotoStatistics> {
 
   const today = new Date();
   const past7Days = new Date(today.setDate(today.getDate() - 7));
+  const dailyPhotoUploads: DailyPhotoStatistics = {};
 
-  // Iterate through competitions
+  console.log('Fetched competition data:', data);
+
   for (const competitionKey in data) {
     const competition = data[competitionKey];
 
-    // Iterate through teams
     if (competition.teams) {
       for (const teamKey in competition.teams) {
-        const team = competition.teams[teamKey];
+        const team: Team = competition.teams[teamKey];
 
-        // Iterate through photos
         if (team.photos) {
           for (const photoKey in team.photos) {
-            const photo = team.photos[photoKey];
-            const uploadTimestamp = new Date(photo.timestamp);
+            const photo: Photo = team.photos[photoKey];
+            const uploadTimestamp: Date = new Date(photo.timestamp);
+
+            console.log(`Processing photo from team ${teamKey} with timestamp: ${photo.timestamp}`);
+
+            if (isNaN(uploadTimestamp.getTime())) {
+              console.error('Invalid timestamp:', photo.timestamp);
+              continue; 
+            }
 
             totalPhotosUploaded++;
 
             if (uploadTimestamp >= past7Days) {
               totalPhotosUploadedInLast7Days++;
             }
+
+            const uploadDate = uploadTimestamp.toISOString().split('T')[0];
+            dailyPhotoUploads[uploadDate] =
+              (dailyPhotoUploads[uploadDate] || 0) + 1;
           }
         }
       }
     }
   }
 
-  return { totalPhotosUploaded, totalPhotosUploadedInLast7Days };
+  console.log('Total Photos Uploaded:', totalPhotosUploaded);
+  console.log('Total Photos Uploaded in Last 7 Days:', totalPhotosUploadedInLast7Days);
+  console.log('Daily Photo Uploads:', dailyPhotoUploads);
+
+  return {
+    totalPhotosUploaded,
+    totalPhotosUploadedInLast7Days,
+    dailyPhotoUploads,
+  };
 }
 
 export async function GET() {
   try {
     const statistics = await fetchPhotoStatistics();
     return NextResponse.json(
-      { success: true, data: statistics },
+      { success: true, data: statistics || [] },
       { status: 200 }
     );
   } catch (error) {

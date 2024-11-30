@@ -23,56 +23,48 @@ interface Competition {
 }
 
 async function getCompetitionsFromApi(): Promise<Competition[]> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/competitions`);
   try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/competitions`);
     const data = await response.json();
 
     if (data.success) {
-      return data.data.filter((competition: Competition) => competition.is_active === true);
+      return data.data.filter((competition: Competition) => competition.is_active);
     } else {
       console.error('Failed to fetch competitions:', data.message || 'Unknown error');
       return [];
     }
   } catch (error) {
-    if (error instanceof Error) {
-      console.error('Failed to fetch competitions:', error.message || 'Unknown error');
-    } else {
-      console.error('Failed to fetch competitions:', 'Unknown error');
-    }
+    console.error('Error fetching competitions:', error instanceof Error ? error.message : 'Unknown error');
     return [];
   }
 }
 
 async function getSubmissionsFromApi(): Promise<Submission[]> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/submissions`);
   try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/submissions`);
     const data = await response.json();
 
     if (data.success) {
-      return data.data; 
+      return data.data;
     } else {
       console.error('Failed to fetch submissions:', data.message || 'Unknown error');
       return [];
     }
   } catch (error) {
-    if (error instanceof Error) {
-      console.error('Failed to fetch submissions:', error.message || 'Unknown error');
-    } else {
-      console.error('Failed to fetch submissions:', 'Unknown error');
-    }
+    console.error('Error fetching submissions:', error instanceof Error ? error.message : 'Unknown error');
     return [];
   }
 }
 
 function getRotatingSubmissions(submissions: Submission[], rotationsPerDay = 1) {
   if (!submissions.length) return [];
-  
+
   // Calculate the current rotation based on the time of day
   const msPerDay = 24 * 60 * 60 * 1000;
   const msPerRotation = msPerDay / rotationsPerDay;
   const currentRotation = Math.floor(Date.now() / msPerRotation);
   const startIndex = currentRotation % submissions.length;
-  
+
   // Get up to 3 submissions starting from the calculated index
   const result = [];
   for (let i = 0; i < 3 && i < submissions.length; i++) {
@@ -85,7 +77,7 @@ function getRotatingSubmissions(submissions: Submission[], rotationsPerDay = 1) 
 export default async function Home() {
   const submissions = await getSubmissionsFromApi();
   const competitions = await getCompetitionsFromApi();
-  
+
   // Get the submissions to display using time-based rotation
   const featuredSubmissions = getRotatingSubmissions(submissions);
 
@@ -167,7 +159,7 @@ export default async function Home() {
       {/* Featured Submissions Section */}
       <section className="text-center p-8">
         <h2 className="text-3xl font-bold mb-6">Featured Submissions</h2>
-        <SubmissionCarousel submissions={submissions} />
+        <SubmissionCarousel submissions={featuredSubmissions} />
       </section>
 
       {/* Active Competitions Section */}
@@ -200,19 +192,17 @@ export default async function Home() {
         </div>
       </section>
 
-      <br/>
+      <br />
 
       {/* Statistics Section */}
       <section className="bg-[#e8f6f3] p-8">
         <StatisticsSection />
       </section>
 
-      <br/>
+      <br />
 
       {/* Placeholder Section */}
       <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-
     </div>
   );
-};
-
+}
