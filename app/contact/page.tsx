@@ -1,10 +1,43 @@
-'use client'; 
+'use client';
 
 import React from "react";
-import Link from "next/link"; 
-import { ArrowLeft } from "lucide-react"; 
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
-const ContactPage = () => {
+const Contact = () => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget); // Access the form via `event.currentTarget`
+    formData.append("access_key", "d11c047b-2a5d-46aa-bc85-dedc74bce2f9");
+
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: json,
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        console.log("Success:", result);
+        alert("Your message has been sent successfully!");
+      } else {
+        console.error("Error:", result);
+        alert("Failed to send the message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An unexpected error occurred. Please try again.");
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center py-12 px-6 text-center relative">
       {/* Back Button */}
@@ -22,7 +55,7 @@ const ContactPage = () => {
 
       {/* Contact Form */}
       <div className="max-w-lg mx-auto">
-        <form action="#" method="POST" className="space-y-6">
+        <form onSubmit={onSubmit} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
               Full Name
@@ -56,7 +89,7 @@ const ContactPage = () => {
             <textarea
               id="message"
               name="message"
-              rows={6} 
+              rows={6}
               required
               className="w-[450px] mt-2 px-6 py-4 text-lg border border-gray-300 rounded-md"
             ></textarea>
@@ -73,18 +106,25 @@ const ContactPage = () => {
 
       {/* Contact Info */}
       <div className="mt-12">
+        <p className="text-lg text-gray-800">You can also reach us at:</p>
         <p className="text-lg text-gray-800">
-          You can also reach us at:
+          Email:{" "}
+          <a
+            href="mailto:picturecompetitionapp@gmail.com"
+            className="text-[#52be80]"
+          >
+            picturecompetitionapp@gmail.com
+          </a>
         </p>
         <p className="text-lg text-gray-800">
-          Email: <a href="mailto:info@yourcompany.com" className="text-[#52be80]">info@yourcompany.com</a>
-        </p>
-        <p className="text-lg text-gray-800">
-          Phone: <a href="tel:+1234567890" className="text-[#52be80]">+1 (234) 567-890</a>
+          Phone:{" "}
+          <a href="tel:+1234567890" className="text-[#52be80]">
+            +1 (234) 567-890
+          </a>
         </p>
       </div>
     </div>
   );
 };
 
-export default ContactPage;
+export default Contact;
