@@ -6,7 +6,7 @@ import { Inter } from 'next/font/google'
 import { Suspense } from 'react'
 
 
-import { AppSidebar } from "@/components/admin/app-sidebar"
+import { AppSidebar } from "@/components/judge/app-sidebar"
 
 import {
   SidebarInset,

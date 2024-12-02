@@ -50,10 +50,9 @@ export function LoginForm() {
       if (!user) {
         throw new Error('Invalid email or password');
       }
-
+      localStorage.setItem('role', user.role);
       console.log('Login successful:', user);
 
-      // Role check
       if (user.role === 'judge') {
         router.push('/judge');
       } else if (user.role === 'admin') {

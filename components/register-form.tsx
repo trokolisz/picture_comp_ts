@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Next.js 13 és újabb verziókban 'next/navigation' kell
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
@@ -23,7 +23,7 @@ export function RegisterForm() {
   const [wantsToBeJudge, setWantsToBeJudge] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter(); // Router hook importálása a helyes helyről
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +31,6 @@ export function RegisterForm() {
     setError(null);
 
     try {
-      // API call to check if the username already exists
       const checkResponse = await fetch('/api/users');
       const data = await checkResponse.json();
 
@@ -46,7 +45,6 @@ export function RegisterForm() {
         throw new Error('Username already exists');
       }
 
-      // Send new user data to the server
       const response = await fetch('/api/users', {
         method: 'POST',
         headers: {
@@ -69,8 +67,7 @@ export function RegisterForm() {
       const newUser = await response.json();
       console.log('Registration successful:', newUser);
 
-      // Redirect user to the homepage after successful registration
-      router.push('/'); // Navigate to the homepage (főoldal)
+      router.push('/');
     } catch (err: any) {
       setError(err.message);
     } finally {
