@@ -49,7 +49,7 @@ export default function Page() {
               <Users className="text-4xl mb- " />
               <h3 className="text-xl font-semibold ">Manage Users</h3>
               <p className="text-sm">View and review user submissions</p>
-              <Button variant="outline" className="mt-4">Go</Button>
+              <Button variant="outline" className="mt-4 text-black">Go</Button>
             </div>
           </Link>
 
@@ -63,7 +63,7 @@ export default function Page() {
               <Gavel className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Judging Area</h3>
               <p className="text-sm ">Review and score submissions</p>
-              <Button variant="outline" className="mt-4">Go</Button>
+              <Button variant="outline" className="mt-4 text-black">Go</Button>
             </div>
           </Link>
 
@@ -77,7 +77,7 @@ export default function Page() {
               <Trophy className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Competitions</h3>
               <p className="text-sm ">View and evaluate ongoing competitions</p>
-              <Button variant="outline" className="mt-4">Go</Button>
+              <Button variant="outline" className="mt-4 text-black">Go</Button>
             </div>
           </Link>
 
@@ -91,7 +91,7 @@ export default function Page() {
               <Settings className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Settings</h3>
               <p className="text-sm ">Configure your judging preferences</p>
-              <Button variant="outline" className="mt-4 dark:bg-primary bg-primary/80 dark:text-primary-foreground text-primary-foreground hover:bg-secondary">Go</Button>
+              <Button variant="outline" className="mt-4 text-black">Go</Button>
             </div>
           </Link>
 
