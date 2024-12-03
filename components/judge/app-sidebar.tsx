@@ -4,6 +4,9 @@ import * as React from "react";
 import { usePathname } from "next/navigation";
 import {
   AudioWaveform,
+  Activity,
+  MapPin,
+  Upload,
   Scale,
   Users,
   Command,
@@ -38,8 +41,7 @@ const data = {
     {
       title: "Feltöltések",
       url: "/judge/judge_images",
-      // Kell új logo
-      icon: Globe,
+      icon: Upload,
       items: [
         {
           title: "Képek bírálása",
@@ -51,20 +53,18 @@ const data = {
     {
       title: "Statisztika",
       url: "/judge",
-      // Kell új logo
-      icon: Trophy,
+      icon: Activity,
       items: [
         {
-          title: "bla",
-          url: "/judge/",
+          title: "Áttekintés",
+          url: "/judge/statistics",
         },
       ],
     },
     {
       title: "Térkép",
       url: "/judge",
-      // Kell új logo
-      icon: Trophy,
+      icon: MapPin,
       items: [
         {
           title: "bla",
