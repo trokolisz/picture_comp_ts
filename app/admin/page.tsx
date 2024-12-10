@@ -36,7 +36,7 @@ export default function Page() {
         <h1 className="text-2xl font-semibold">Welcome Admin!</h1>
       </div>
 
-      <div className="flex flex-col justify-center items-center min-h-screen p-4 gap-4">
+      <div className="flex justify-center items-center min-h-screen p-4">
         <div className="grid auto-rows-min gap-4 sm:grid-cols-2 md:grid-cols-4"> 
 
           {/* Users Card */}
@@ -50,7 +50,7 @@ export default function Page() {
               <Users className="text-4xl mb- " />
               <h3 className="text-xl font-semibold ">Manage Users</h3>
               <p className="text-sm">Add, edit, or remove users</p>
-              <Button variant="outline" className="mt-4">Go</Button>
+              <Button variant="outline" className="mt-4 text-black">Go</Button>
             </div>
           </Link>
 
@@ -65,7 +65,7 @@ export default function Page() {
               <Gavel className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Manage Judges</h3>
               <p className="text-sm ">Add, edit, or remove judges</p>
-              <Button variant="outline" className="mt-4">Go</Button>
+              <Button variant="outline" className="mt-4 text-black">Go</Button>
             </div>
           </Link>
 
@@ -80,7 +80,7 @@ export default function Page() {
               <Trophy className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Manage Competitions</h3>
               <p className="text-sm ">Create and manage competitions</p>
-              <Button variant="outline" className="mt-4">Go</Button>
+              <Button variant="outline" className="mt-4 text-black">Go</Button>
             </div>
           </Link>
 
@@ -95,7 +95,7 @@ export default function Page() {
               <Settings className="text-4xl mb-2" />
               <h3 className="text-xl font-semibold">Settings</h3>
               <p className="text-sm ">Configure application settings</p>
-              <Button variant="outline" className="mt-4 dark:bg-primary bg-primary/80 dark:text-primary-foreground text-primary-foreground hover:bg-secondary">Go</Button>
+              <Button variant="outline" className="mt-4 text-black">Go</Button>
             </div>
           </Link>
 
