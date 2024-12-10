@@ -1,4 +1,4 @@
-'use client'; 
+'use client';
 
 import React from "react";
 import Link from "next/link";
@@ -19,6 +19,22 @@ const Map = () => {
 
       <MapComponentGoogle/>
 
+      <style jsx>{`
+        .filter-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 10px;
+        }
+        .filter-label {
+          font-size: 1.2em;
+          margin-bottom: 10px;
+        }
+        .filter-select {
+          padding: 5px 10px;
+          font-size: 1em;
+        }
+      `}</style>
     </div>
   );
 };
