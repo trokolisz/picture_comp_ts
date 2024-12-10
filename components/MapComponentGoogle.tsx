@@ -29,6 +29,7 @@ const MarkerCluster = ({ markers }: { markers: Photo[] }) => {
     const markerClusterGroup = L.markerClusterGroup();
 
     markers.forEach((marker) => {
+      console.log('Adding marker:', marker);
       if (marker.latitude !== undefined && marker.longitude !== undefined) {
         const leafletMarker = L.marker([marker.latitude, marker.longitude], { icon: defaultMarkerIcon })
           .bindPopup(`
@@ -54,41 +55,27 @@ const MarkerCluster = ({ markers }: { markers: Photo[] }) => {
 
   return null;
 };
+
 const MapComponentGoogle = () => {
   const [locations, setLocations] = useState<Photo[]>([]);
 
   useEffect(() => {
     const fetchLocations = async () => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/competitions`);
+      try {
+        const response = await fetch(`/api/locations`);
         const data = await response.json();
 
-        if (data.competitions) {
-          const locationsData: Photo[] = [];
+        console.log('API válasz:', data);
 
-          Object.values(data.competitions).forEach((competition: any) => {
-            if (competition.teams) {
-              Object.values(competition.teams).forEach((team: any) => {
-                if (team.photos) {
-                  Object.values(team.photos).forEach((photo: any) => {
-                    if (photo.latitude && photo.longitude) {
-                      locationsData.push({
-                        latitude: photo.latitude,
-                        longitude: photo.longitude,
-                        url: photo.url,
-                        title: photo.title,
-                        description: photo.description,
-                      });
-                    }
-                  });
-                }
-              });
-            }
-          });
-
-          setLocations(locationsData);
+        if (data.success && data.data) {
+          setLocations(data.data);
+          console.log('Locations:', data.data); // Naplózd az adatokat
         } else {
-          console.error('Nem sikerült a lekérés');
+          console.error('Nem sikerült a lekérés: Az adatok nem megfelelő formátumúak vagy üresek.');
         }
+      } catch (error) {
+        console.error('Nem sikerült a lekérés:', error);
+      }
     };
 
     fetchLocations();
