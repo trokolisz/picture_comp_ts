@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
+import { useRole } from '@/hooks/use-role';
 
 async function createCompetition(competitionData: {
   name: string;
@@ -43,6 +44,7 @@ async function createCompetition(competitionData: {
 }
 
 export default function CreateCompetitionPage() {
+  useRole('admin')
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");

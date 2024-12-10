@@ -49,10 +49,9 @@ const data = {
         },
       ],
     },
-    // Csak minta -> kell saját / nem is kell mind?
     {
       title: "Statisztika",
-      url: "/judge",
+      url: "/judge/statistics",
       icon: Activity,
       items: [
         {
@@ -63,12 +62,12 @@ const data = {
     },
     {
       title: "Térkép",
-      url: "/judge",
+      url: "/judge/judge_map",
       icon: MapPin,
       items: [
         {
-          title: "bla",
-          url: "/judge",
+          title: "Google Térkép",
+          url: "/judge/judge_map",
         },
       ],
     },

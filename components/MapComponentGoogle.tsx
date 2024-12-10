@@ -39,9 +39,9 @@ const MarkerCluster = ({ markers, selectedTeam }: { markers: Photo[], selectedTe
               <img src="${marker.url}" alt="${marker.title}" style="width:100px;height:auto;" />
               <p><strong>${marker.title}</strong></p>
               <p>${marker.description}</p>
-              ${selectedTeam === '' ? `<p>Koordináta: (${marker.latitude.toFixed(5)}, ${marker.longitude.toFixed(5)})</p>` : ''}
-              <p>Verseny: ${marker.competition}</p>
-              <p>Csapat: ${marker.team}</p>
+              ${selectedTeam === '' ? `<p>Coordinates: (${marker.latitude.toFixed(5)}, ${marker.longitude.toFixed(5)})</p>` : ''}
+              <p>Competition: ${marker.competition}</p>
+              <p>Team: ${marker.team}</p>
             </div>
           `);
         markerClusterGroup.addLayer(leafletMarker);
@@ -79,10 +79,10 @@ const MapComponentGoogle = () => {
           setLocations(data.data.locations);
           setCompetitions(data.data.competitions);
         } else {
-          console.error('Nem sikerült a lekérés: Az adatok nem megfelelő formátumúak vagy üresek.');
+          console.error('Failed to fetch data: The data is improperly formatted or empty.');
         }
       } catch (error) {
-        console.error('Nem sikerült a lekérés:', error);
+        console.error('Failed to fetch data:', error);
       }
     };
 
@@ -115,7 +115,7 @@ const MapComponentGoogle = () => {
     <>
       <div className="flex flex-col items-center p-4 bg-gray-100 rounded-md shadow-md mb-6">
         <label className="mb-4 w-full text-center text-lg font-semibold">
-          Válassz versenyt:
+          Select competition:
           <select
             value={selectedCompetition}
             onChange={(e) => setSelectedCompetition(e.target.value)}
@@ -132,7 +132,7 @@ const MapComponentGoogle = () => {
         {selectedCompetition && (
           <>
             <label className="w-full text-center text-lg font-semibold">
-              Válassz csapatot:
+              Select team:
               <select
                 value={selectedTeam}
                 onChange={(e) => setSelectedTeam(e.target.value)}
@@ -153,7 +153,7 @@ const MapComponentGoogle = () => {
                 onChange={() => setCompareTeams(!compareTeams)}
                 className="mr-2"
               />
-              2 csapat összehasonlítása
+              Compare 2 teams
               {compareTeams && (
                 <>
                   <select
@@ -161,7 +161,7 @@ const MapComponentGoogle = () => {
                     onChange={(e) => setTeam1(e.target.value)}
                     className="mt-2 w-full p-2 border border-gray-200 rounded-md"
                   >
-                    <option value="">Első csapat</option>
+                    <option value="">First team</option>
                     {teams.map((team, index) => (
                       <option key={index} value={team}>
                         {team}
@@ -173,7 +173,7 @@ const MapComponentGoogle = () => {
                     onChange={(e) => setTeam2(e.target.value)}
                     className="mt-2 w-full p-2 border border-gray-200 rounded-md"
                   >
-                    <option value="">Második csapat</option>
+                    <option value="">Second team</option>
                     {teams.map((team, index) => (
                       <option key={index} value={team}>
                         {team}

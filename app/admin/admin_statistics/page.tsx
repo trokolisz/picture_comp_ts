@@ -17,7 +17,7 @@ import { useRole } from '@/hooks/use-role';
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, LineElement, PointElement);
 
 export default function StatisticsSection() {
-  useRole('judge')
+  useRole('admin')
   const [statistics, setStatistics] = useState<{
     totalCompetitions: number;
     activeCompetitions: number;

@@ -4,10 +4,13 @@ import React from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react"; 
 import dynamic from "next/dynamic";
+import { useRole } from '@/hooks/use-role';
 
 const MapComponentGoogle = dynamic(() => import("@/components/MapComponentGoogle"), { ssr: false });
 
-const Map = () => {
+export default function StatisticsSection() {
+  useRole('admin');
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center py-12 px-6 text-center relative">
       {/* Back Button */}
@@ -16,10 +19,7 @@ const Map = () => {
           <ArrowLeft size={24} />
         </button>
       </Link>
-
-      <MapComponentGoogle/>
+      <MapComponentGoogle />
     </div>
   );
 };
-
-export default Map;

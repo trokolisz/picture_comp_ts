@@ -11,9 +11,7 @@ import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 
 export default function Page() {
-    // Kommentet töröld ki!!!
-   // Kommentet töröld ki!!!
-  //useRole('judge')
+useRole('judge')
 
   const [isUsersHovered, setIsUsersHovered] = useState(false)
   const [isJudgesHovered, setIsJudgesHovered] = useState(false)

@@ -6,6 +6,8 @@ import {
   AudioWaveform,
   Scale,
   Users,
+  Activity,
+  MapPin,
   Command,
   Frame,
   GalleryVerticalEnd,
@@ -96,6 +98,28 @@ const data = {
         {
           title: "Verseny Hozzáadás",
           url: "/admin/public/add_competition",
+        },
+      ],
+    },
+    {
+      title: "Statisztika",
+      url: "/admin/admin_statistics",
+      icon: Activity,
+      items: [
+        {
+          title: "Áttekintés",
+          url: "/admin/admin_statistics",
+        },
+      ],
+    },
+    {
+      title: "Térkép",
+      url: "/admin/admin_map",
+      icon: MapPin,
+      items: [
+        {
+          title: "Google Térkép",
+          url: "/admin/admin_map",
         },
       ],
     },
