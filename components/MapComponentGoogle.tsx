@@ -14,6 +14,15 @@ const defaultMarkerIcon = L.icon({
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
 });
 
+const teamMarkerIcons = Array.from({ length: 10 }, (_, i) =>
+  L.icon({
+    iconUrl: `/images/marker/${i + 1}.png`,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+  })
+);
+
 interface Photo {
   latitude: number;
   longitude: number;
@@ -24,14 +33,25 @@ interface Photo {
   team: string;
 }
 
-const MarkerCluster = ({ markers, selectedTeam }: { markers: Photo[], selectedTeam: string }) => {
+const MarkerCluster = ({ markers, selectedTeam, selectedCompetition }: { markers: Photo[], selectedTeam: string, selectedCompetition: string }) => {
   const map = useMap();
 
   useEffect(() => {
     const markerClusterGroup = L.markerClusterGroup();
 
+    const uniqueTeams = [...new Set(markers.map((marker) => marker.team))];
+
     markers.forEach((marker) => {
-      const icon = selectedTeam === '' ? defaultMarkerIcon : defaultMarkerIcon;
+      const teamIndex = uniqueTeams.indexOf(marker.team);
+
+      // Ha nincs verseny kiválasztva, csak az alapértelmezett ikont használja
+      const icon =
+        selectedCompetition === ''
+          ? defaultMarkerIcon
+          : teamIndex >= 0 && teamIndex < 10
+          ? teamMarkerIcons[teamIndex]
+          : defaultMarkerIcon;
+
       if (marker.latitude !== undefined && marker.longitude !== undefined) {
         const leafletMarker = L.marker([marker.latitude, marker.longitude], { icon })
           .bindPopup(`
@@ -55,7 +75,7 @@ const MarkerCluster = ({ markers, selectedTeam }: { markers: Photo[], selectedTe
     return () => {
       map.removeLayer(markerClusterGroup);
     };
-  }, [map, markers, selectedTeam]);
+  }, [map, markers, selectedTeam, selectedCompetition]);
 
   return null;
 };
@@ -199,6 +219,7 @@ const MapComponentGoogle = () => {
         <MarkerCluster
           markers={compareTeams ? filteredLocations.filter((loc) => loc.team === team1 || loc.team === team2) : teamFilteredLocations}
           selectedTeam={selectedTeam}
+          selectedCompetition={selectedCompetition}
         />
       </MapContainer>
     </>
