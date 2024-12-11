@@ -273,7 +273,7 @@ export const columns: ColumnDef<User>[] = [
               {user.is_active ? "Ban user" : "Unban user"}
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => handleRoleChange(user.username, user.role)}>
-              Change role to {user.role === "competitor" ? "Judge" : "Competitor"}
+              Approve to judge {user.role === "competitor" ? "Judge" : "Competitor"}
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
