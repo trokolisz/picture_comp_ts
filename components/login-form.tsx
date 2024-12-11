@@ -107,10 +107,6 @@ export function LoginForm() {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? 'Loading...' : 'Login'}
           </Button>
-          {/*Nincs kidolgozva -> Authentication*/}
-          <Button variant="outline" className="w-full">
-            Login with Google
-          </Button>
         </form>
         {error && <p className="mt-2 text-center text-sm text-red-500">{error}</p>}
         <div className="mt-4 text-center text-sm">

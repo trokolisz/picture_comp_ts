@@ -91,7 +91,7 @@ export default async function Home() {
       <section className="bg-[#52be80] text-white text-center p-12">
         <h1 className="text-4xl font-bold mb-4">Welcome to the Picture Competition!</h1>
         <p className="text-xl mb-6">Showcase your photography skills, enter exciting competitions, and win amazing prizes!</p>
-        <button className="bg-white text-[#52be80] px-6 py-3 rounded-lg hover:scale-105 transition-transform duration-300">
+        <button className="bg-white text-[#52be80] px-6 py-3 rounded-lg hover:scale-105 transition-transform duration-300" disabled>
           Join Now
         </button>
       </section>
