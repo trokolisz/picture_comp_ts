@@ -4,20 +4,17 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Users, Gavel, Trophy, Settings } from "lucide-react"
-import { useRole } from '@/hooks/use-role';
 
 import Head from "@/components/header";
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 
 export default function Page() {
-  useRole('admin')
-  
   const [isUsersHovered, setIsUsersHovered] = useState(false)
   const [isJudgesHovered, setIsJudgesHovered] = useState(false)
   const [isCompetitionsHovered, setIsCompetitionsHovered] = useState(false)
   const [isSettingsHovered, setIsSettingsHovered] = useState(false)
-
+  
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">

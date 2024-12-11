@@ -4,12 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react"; 
 import dynamic from "next/dynamic";
-import { useRole } from '@/hooks/use-role';
 
 const MapComponentGoogle = dynamic(() => import("@/components/MapComponentGoogle"), { ssr: false });
 
 export default function StatisticsSection() {
-  useRole('judge');
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center py-12 px-6 text-center relative">

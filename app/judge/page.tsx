@@ -4,15 +4,12 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Users, Gavel, Trophy, Settings } from "lucide-react"
-import { useRole } from '@/hooks/use-role';
 
 import Head from "@/components/header"
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 
 export default function Page() {
-useRole('judge')
-
   const [isUsersHovered, setIsUsersHovered] = useState(false)
   const [isJudgesHovered, setIsJudgesHovered] = useState(false)
   const [isCompetitionsHovered, setIsCompetitionsHovered] = useState(false)

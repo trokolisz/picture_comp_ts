@@ -12,12 +12,10 @@ import {
   LineElement,
   PointElement,
 } from "chart.js";
-import { useRole } from '@/hooks/use-role';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, LineElement, PointElement);
 
 export default function StatisticsSection() {
-  useRole('judge')
   const [statistics, setStatistics] = useState<{
     totalCompetitions: number;
     activeCompetitions: number;
