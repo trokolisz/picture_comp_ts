@@ -1,8 +1,12 @@
 import NavMenu from "@/components/navbar";
-import { UploadCloud, Trophy, ArrowRightCircle } from "lucide-react";
+import { UploadCloud, Trophy, ArrowRightCircle, Star } from "lucide-react";
 import { cookies } from 'next/headers';
 import SubmissionCarousel from '@/components/SubmissionCarousel';
 import StatisticsSection from "@/components/statistics";
+
+import { ErrorBoundary } from '@/components/ui/error-boundary';
+import { CompetitionList } from '@/components/competition-list';
+import { PhotoCarousel } from '@/components/photo-carousel';
 
 interface Submission {
   participant: string;
@@ -157,9 +161,34 @@ export default async function Home() {
       <br />
 
       {/* Featured Submissions Section */}
-      <section className="text-center p-8">
-        <h2 className="text-3xl font-bold mb-6">Featured Submissions</h2>
-        <SubmissionCarousel submissions={featuredSubmissions} />
+      <section>
+        <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
+          <Star className="h-8 w-8" />
+          Featured Photos
+        </h2>
+        <ErrorBoundary>
+          <PhotoCarousel />
+        </ErrorBoundary>
+      </section>
+
+      <section>
+        <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
+          <Trophy className="h-8 w-8" />
+          Upcoming Competitions
+        </h2>
+        <ErrorBoundary>
+          <CompetitionList type="upcoming" />
+        </ErrorBoundary>
+      </section>
+
+      <section>
+        <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
+          <Trophy className="h-8 w-8" />
+          Recent Competition Results
+        </h2>
+        <ErrorBoundary>
+          <CompetitionList type="recent" />
+        </ErrorBoundary>
       </section>
 
       {/* Active Competitions Section */}

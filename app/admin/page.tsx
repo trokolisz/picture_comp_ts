@@ -26,7 +26,7 @@ export default function Page() {
       </header>
 
       <div className="flex flex-col justify-center items-center py-4">
-        <h1 className="text-3xl font-bold font-montserrat">Admin Dashboarde</h1>
+        <h1 className="text-3xl font-bold font-montserrat">Admin Dashboard</h1>
         <br/>
         <h1 className="text-2xl font-semibold">Welcome Admin!</h1>
       </div>

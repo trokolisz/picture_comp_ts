@@ -2,7 +2,7 @@
 module.exports = {
   // ...existing code...
   images: {
-    domains: ['picsum.photos'],
+    domains: ['picsum.photos', 'fakeimg.pl', 'dummyimage.com'],
   },
   // ...existing code...
 };
