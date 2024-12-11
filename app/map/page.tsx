@@ -16,8 +16,9 @@ const Map = () => {
           <ArrowLeft size={24} />
         </button>
       </Link>
-
-      <MapComponentGoogle/>
+      <div className="h-[80vh] w-full rounded-xl bg-muted/500">
+        <MapComponentGoogle/>
+      </div>
     </div>
   );
 };

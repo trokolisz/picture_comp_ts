@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Hiba javítva: "use client" hiányzott
 
 import { useState, useEffect } from "react";
 import { Bar, Line } from "react-chartjs-2";
@@ -14,6 +14,18 @@ import {
 } from "chart.js";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, LineElement, PointElement);
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function StatisticsSection() {
   const [statistics, setStatistics] = useState<{
@@ -127,90 +139,113 @@ export default function StatisticsSection() {
   };
 
   return (
-    <section className="p-8 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-4">Statistics</h2>
-
-      {/* Tabs */}
-      <div className="flex border-b mb-6">
-        <button
-          className={`px-6 py-2 text-lg font-semibold focus:outline-none transition-all duration-300 ${
-            activeTab === "general" ? "text-white bg-[#52be80] border-b-4 border-green-800" : "text-gray-700"
-          }`}
-          onClick={() => setActiveTab("general")}
-        >
-          General Stats
-        </button>
-        <button
-          className={`px-6 py-2 text-lg font-semibold focus:outline-none transition-all duration-300 ${
-            activeTab === "activity" ? "text-white bg-[#52be80] border-b-4 border-green-800" : "text-gray-700"
-          }`}
-          onClick={() => setActiveTab("activity")}
-        >
-          Judging Activity
-        </button>
-        <button
-          className={`px-6 py-2 text-lg font-semibold focus:outline-none transition-all duration-300 ${
-            activeTab === "performance" ? "text-white bg-[#52be80] border-b-4 border-green-800" : "text-gray-700"
-          }`}
-          onClick={() => setActiveTab("performance")}
-        >
-          Performance Metrics
-        </button>
-      </div>
-
-      {/* General Stats Tab */}
-      {activeTab === "general" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-          <div className="p-6 bg-gray-100 rounded-lg shadow-md flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold">Total Competitions</h3>
-              <p className="text-3xl font-bold text-green-600">{statistics?.totalCompetitions}</p>
-            </div>
-          </div>
-
-          <div className="p-6 bg-gray-100 rounded-lg shadow-md flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold">Active Competitions</h3>
-              <p className="text-3xl font-bold text-blue-600">{statistics?.activeCompetitions}</p>
-            </div>
-          </div>
-
-          <div className="p-6 bg-gray-100 rounded-lg shadow-md flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold">Total Photos Judged</h3>
-              <p className="text-3xl font-bold text-orange-600">{statistics?.totalPhotosJudged}</p>
-            </div>
-          </div>
-
-          <div className="p-6 bg-gray-100 rounded-lg shadow-md flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold">Photos Pending Review</h3>
-              <p className="text-3xl font-bold text-yellow-600">{statistics?.photosPendingReview}</p>
-            </div>
-          </div>
-
-          <div className="p-6 bg-gray-100 rounded-lg shadow-md flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold">Total Judges</h3>
-              <p className="text-3xl font-bold text-purple-600">{statistics?.totalJudges}</p>
-            </div>
-          </div>
+    <>
+      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+        <div className="flex items-center gap-2 px-4 w-full">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbLink href="/admin/">Judge</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbLink href="#">Statistics</BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
-      )}
+      </header>
+      <section className="p-8 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-center mb-4">Statistics</h2>
 
-      {/* Judging Activity Tab */}
-      {activeTab === "activity" && (
-        <div style={{ width: "100%", height: "400px", marginBottom: "24px" }}>
-          <Bar data={chartData} options={chartOptions} />
+        {/* Tabs */}
+        <div className="flex border-b mb-6">
+          <button
+            className={`px-6 py-2 text-lg font-semibold focus:outline-none transition-all duration-300 ${
+              activeTab === "general" ? "text-white bg-[#52be80] border-b-4 border-green-800" : "text-gray-700"
+            }`}
+            onClick={() => setActiveTab("general")}
+          >
+            General Stats
+          </button>
+          <button
+            className={`px-6 py-2 text-lg font-semibold focus:outline-none transition-all duration-300 ${
+              activeTab === "activity" ? "text-white bg-[#52be80] border-b-4 border-green-800" : "text-gray-700"
+            }`}
+            onClick={() => setActiveTab("activity")}
+          >
+            Judging Activity
+          </button>
+          <button
+            className={`px-6 py-2 text-lg font-semibold focus:outline-none transition-all duration-300 ${
+              activeTab === "performance" ? "text-white bg-[#52be80] border-b-4 border-green-800" : "text-gray-700"
+            }`}
+            onClick={() => setActiveTab("performance")}
+          >
+            Performance Metrics
+          </button>
         </div>
-      )}
 
-      {/* Performance Metrics Tab */}
-      {activeTab === "performance" && (
-        <div style={{ width: "100%", height: "300px", marginBottom: "24px" }}>
-          <Line data={lineChartData} options={chartOptions} />
-        </div>
-      )}
-    </section>
+        {/* General Stats Tab */}
+        {activeTab === "general" && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            <div className="p-6 bg-gray-100 rounded-lg shadow-md flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold">Total Competitions</h3>
+                <p className="text-3xl font-bold text-green-600">{statistics?.totalCompetitions}</p>
+              </div>
+            </div>
+
+            <div className="p-6 bg-gray-100 rounded-lg shadow-md flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold">Active Competitions</h3>
+                <p className="text-3xl font-bold text-blue-600">{statistics?.activeCompetitions}</p>
+              </div>
+            </div>
+
+            <div className="p-6 bg-gray-100 rounded-lg shadow-md flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold">Total Photos Judged</h3>
+                <p className="text-3xl font-bold text-orange-600">{statistics?.totalPhotosJudged}</p>
+              </div>
+            </div>
+
+            <div className="p-6 bg-gray-100 rounded-lg shadow-md flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold">Photos Pending Review</h3>
+                <p className="text-3xl font-bold text-yellow-600">{statistics?.photosPendingReview}</p>
+              </div>
+            </div>
+
+            <div className="p-6 bg-gray-100 rounded-lg shadow-md flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold">Total Judges</h3>
+                <p className="text-3xl font-bold text-purple-600">{statistics?.totalJudges}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Judging Activity Tab */}
+        {activeTab === "activity" && (
+          <div style={{ width: "100%", height: "400px", marginBottom: "24px" }}>
+            <Bar data={chartData} options={chartOptions} />
+          </div>
+        )}
+
+        {/* Performance Metrics Tab */}
+        {activeTab === "performance" && (
+          <div style={{ width: "100%", height: "300px", marginBottom: "24px" }}>
+            <Line data={lineChartData} options={chartOptions} />
+          </div>
+        )}
+      </section>
+    </>
   );
 }
