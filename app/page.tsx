@@ -79,12 +79,7 @@ function getRotatingSubmissions(submissions: Submission[], rotationsPerDay = 1) 
 }
 
 export default async function Home() {
-  const submissions = await getSubmissionsFromApi();
   const competitions = await getCompetitionsFromApi();
-
-  // Get the submissions to display using time-based rotation
-  const featuredSubmissions = getRotatingSubmissions(submissions);
-
   return (
     <div className="min-h-screen bg-[#e8f6f3]">
       <header className="flex flex-col md:flex-row justify-between items-center p-4 bg-gradient-to-r from-green-400 to-blue-500 text-white shadow-lg rounded-b-lg">
@@ -108,6 +103,23 @@ export default async function Home() {
       {/* Cards Section */}
       <div className="flex flex-1 flex-col justify-center gap-4 p-4 pt-0">
         <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+
+           {/* Enter a Competition Card */}
+           <div className="aspect-video rounded-xl bg-muted/50 hover:bg-[#52be80] group flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
+            <div className="flex flex-col items-center text-center">
+              <ArrowRightCircle
+                size={100}
+                className="mb-4 text-[#52be80] group-hover:text-white transition-colors duration-300"
+              />
+              <h3 className="text-xl font-semibold group-hover:text-white transition-colors duration-300">
+                Enter a Competition
+              </h3>
+              <p className="text-gray-600 group-hover:text-white transition-colors duration-300">
+                Pick a competition that suits your style.
+              </p>
+            </div>
+          </div>
+
           {/* Upload Photo Card */}
           <div className="aspect-video rounded-xl bg-muted/50 hover:bg-[#52be80] group flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
             <div className="flex flex-col items-center text-center">
@@ -124,21 +136,7 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* Enter a Competition Card */}
-          <div className="aspect-video rounded-xl bg-muted/50 hover:bg-[#52be80] group flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
-            <div className="flex flex-col items-center text-center">
-              <ArrowRightCircle
-                size={100}
-                className="mb-4 text-[#52be80] group-hover:text-white transition-colors duration-300"
-              />
-              <h3 className="text-xl font-semibold group-hover:text-white transition-colors duration-300">
-                Enter a Competition
-              </h3>
-              <p className="text-gray-600 group-hover:text-white transition-colors duration-300">
-                Pick a competition that suits your style.
-              </p>
-            </div>
-          </div>
+         
 
           {/* Win Prizes Card */}
           <div className="aspect-video rounded-xl bg-muted/50 hover:bg-[#52be80] group flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
@@ -191,35 +189,7 @@ export default async function Home() {
         </ErrorBoundary>
       </section>
 
-      {/* Active Competitions Section */}
-      <section className="text-center p-8">
-        <h2 className="text-3xl font-bold mb-6">Active Competitions</h2>
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          {competitions.length > 0 ? (
-            competitions.map((competition, index) => (
-              <div
-                key={index}
-                className="md:w-120 aspect-video rounded-xl bg-muted/50 p-6 flex flex-col items-center justify-center group transition transform hover:scale-105 hover:bg-[#52be80] duration-300"
-              >
-                <h3 className="text-xl font-semibold group-hover:text-white mb-4">
-                  {competition.name}
-                </h3>
-                <p className="text-gray-600 group-hover:text-white">
-                  {competition.description}
-                </p>
-                <p className="text-gray-600 group-hover:text-white mt-2">
-                  Start Date: {competition.start_date}
-                </p>
-                <p className="text-gray-600 group-hover:text-white">
-                  End Date: {competition.end_date}
-                </p>
-              </div>
-            ))
-          ) : (
-            <p className="text-xl text-gray-500">No active competitions available</p>
-          )}
-        </div>
-      </section>
+      
 
       <br />
 
