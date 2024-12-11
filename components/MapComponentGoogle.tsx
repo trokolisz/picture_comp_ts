@@ -210,7 +210,7 @@ const MapComponentGoogle = () => {
       <MapContainer
         center={[20, 0]}
         zoom={3}
-        style={{ width: '100%', height: compareTeams ? 'auto' : '700px' }}
+        style={{ width: '100%', height: compareTeams ? 'auto' : '100%' }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
