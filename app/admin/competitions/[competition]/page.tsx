@@ -3,7 +3,10 @@ import React from 'react';
 import Head from "@/components/header";
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
-import CompetitionViewClient from './CompetitionViewClient';
+import { getCompetition, getUsers } from '@/lib/db';
+import { Suspense } from 'react';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import CompetitionEditForm from '@/components/admin/CompetitionEditForm';
 
 interface Props {
   params: Promise<{ competition: string }>
@@ -15,7 +18,8 @@ const CompetitionPage = async ({ params }: Props) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
   const response = await fetch(`${baseUrl}/api/competitions/${competition}`);
   const comp = await response.json();
-
+  const this_competition = await getCompetition(competition);
+  const users = await getUsers();
   if (!response.ok) {
     notFound();
   }
@@ -29,7 +33,9 @@ const CompetitionPage = async ({ params }: Props) => {
           <Head data={`admin/competitions/${competition}`} />
         </div>
       </header>
-      <CompetitionViewClient competition={comp} />
+    <Suspense fallback={<LoadingSpinner />}>
+      <CompetitionEditForm initialCompetition={this_competition} id={competition} users={users} />
+    </Suspense>
     </>
   );
 };
