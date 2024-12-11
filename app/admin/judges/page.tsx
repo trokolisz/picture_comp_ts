@@ -59,7 +59,7 @@ export default async function Home() {
                 <BreadcrumbSeparator className="hidden md:block" /> 
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    Users
+                    Judges
                   </BreadcrumbLink>
                 </BreadcrumbItem>                   
               </BreadcrumbList>
