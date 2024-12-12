@@ -38,7 +38,7 @@ async function fetchCompetitions(): Promise<Competition[]> {
             return value as Competition;
         });
     } else {
-        console.log('No competitions available');
+        //console.log('No competitions available');
         return [];
     }
 }

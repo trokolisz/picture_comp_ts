@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
     const { username, email, password, full_name, role, isJudgePending } = validation.data;
 
     if (await emailExists(email)) {
-        console.log(`Email ${email} already exists.`);
+        //console.log(`Email ${email} already exists.`);
         return NextResponse.json({ success: false, message: 'Email already exists' }, { status: 400 });
     }
 

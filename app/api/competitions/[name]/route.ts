@@ -55,7 +55,7 @@ function remove(compRef: DatabaseReference) {
 
 export async function GET(request: NextRequest, { params }: Props){
     const name = (await params).name;
-    console.log(name);
+    //console.log(name);
     if (!name) {
         return NextResponse.json({
             error: "Competition name is required"

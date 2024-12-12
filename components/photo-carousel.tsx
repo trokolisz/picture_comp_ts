@@ -19,7 +19,7 @@ interface RatedPhoto extends Photo {
 
 export async function PhotoCarousel() {
   const photos = await getFeaturedPhotos();
-  console.log(photos);  
+  //console.log(photos);  
   if (photos.length === 0) {
     return  <Card>
         <CardContent className="pt-6">

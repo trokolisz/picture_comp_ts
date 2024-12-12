@@ -27,7 +27,7 @@ async function fetchLocations(): Promise<{ locations: Photo[], competitions: str
   const snapshot = await get(competitionsRef);
 
   if (!snapshot.exists()) {
-    console.log('No competitions available');
+    //console.log('No competitions available');
     return { locations: [], competitions: [], teams: [] };
   }
 
@@ -36,7 +36,7 @@ async function fetchLocations(): Promise<{ locations: Photo[], competitions: str
   const competitionNames: string[] = [];
   const teamNames: string[] = [];
 
-  console.log('Fetched competition data:', data);
+  //console.log('Fetched competition data:', data);
 
   for (const competitionKey in data) {
     const competition = data[competitionKey];
@@ -70,9 +70,9 @@ async function fetchLocations(): Promise<{ locations: Photo[], competitions: str
     }
   }
 
-  console.log('Locations:', locations);
-  console.log('Competitions:', competitionNames);
-  console.log('Teams:', teamNames);
+  //console.log('Locations:', locations);
+  //console.log('Competitions:', competitionNames);
+  //console.log('Teams:', teamNames);
 
   return { locations, competitions: competitionNames, teams: teamNames };
 }

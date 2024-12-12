@@ -68,7 +68,7 @@ export async function getFeaturedPhotos(limit = 10) {
     if (competition.teams) {
       Object.values(competition.teams).forEach((team) => {
         if (team.photos) {
-          //console.log(team.photos);
+          ////console.log(team.photos);
           Object.values(team.photos).forEach((photo) => {
             if (photo.scores) {
               const ratings = Object.values(photo.scores);

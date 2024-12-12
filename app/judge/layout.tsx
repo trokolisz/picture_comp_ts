@@ -34,7 +34,6 @@ export default function RootLayout({
           height: "100vh",
         }}
       >
-        <h1 className="text-xl font-bold">Access Denied</h1>
       </div>
     );
   }
