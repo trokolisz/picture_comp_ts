@@ -10,9 +10,8 @@ export default function AdminHeader() {
     <div className="flex items-center gap-2 px-4 w-full">
       <SidebarTrigger className="-ml-1" />
       <Separator orientation="vertical" className="mr-2 h-4" />
-      <Head data="admin" />
-      <Separator orientation="vertical" className="mr-2 h-4" />
-      <Head data="competitions" />
+      <Head data="admin/competitions" />
+
     </div>
   </header>
 }

@@ -220,23 +220,6 @@ export const columns: ColumnDef<User>[] = [
         }
       };
 
-      const handleBan = async (username: string, isActive: boolean) => {
-        try {
-          const action = isActive ? 'ban' : 'unban';
-          const response = await fetch(`/api/users/${username}/${action}`, {
-            method: 'POST',
-          });
-          if (response.ok) {
-            alert(`User ${username} has been ${action}ed.`);
-          } else {
-            alert(`Failed to ${action} user ${username}`);
-          }
-        } catch (error) {
-          console.error(error);
-          alert("An error occurred while banning the user.");
-        }
-      };
-
       const handleRoleChange = async (username: string, currentRole: string) => {
         try {
           const newRole = currentRole === 'competitor' ? 'judge' : 'competitor';
@@ -268,9 +251,6 @@ export const columns: ColumnDef<User>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => handleDelete(user.username)}>
               Delete user
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleBan(user.username, user.is_active)}>
-              {user.is_active ? "Ban user" : "Unban user"}
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => handleRoleChange(user.username, user.role)}>
               Approve to judge {user.role === "competitor" ? "Judge" : "Competitor"}

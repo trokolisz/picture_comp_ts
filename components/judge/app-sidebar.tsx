@@ -39,13 +39,13 @@ const data = {
   },
   navMain: [
     {
-      title: "Feltöltések",
+      title: "Versenyek",
       url: "/judge/judge_images",
       icon: Upload,
       items: [
         {
-          title: "Képek bírálása",
-          url: "/judge/judge_images",
+          title: "Versenyek",
+          url: "/judge/competitions",
         },
       ],
     },

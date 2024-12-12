@@ -219,24 +219,6 @@ export const columns: ColumnDef<User>[] = [
         }
       };
   
-      // Bannolás
-      const handleBan = async (username: string, isActive: boolean) => {
-        try {
-          const action = isActive ? 'ban' : 'unban';
-          const response = await fetch(`/api/users/${username}/${action}`, {
-            method: 'POST',
-          });
-          if (response.ok) {
-            alert(`User ${username} has been ${action}ed.`);
-          } else {
-            alert(`Failed to ${action} user ${username}`);
-          }
-        } catch (error) {
-          console.error(error);
-          alert(`An error occurred while ing the user.`); {/*Hibaüzenet miatt kivettem.. ${action}*/} 
-        }
-      };
-  
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -259,12 +241,6 @@ export const columns: ColumnDef<User>[] = [
               onClick={() => handleDelete(user.username)}
             >
               Delete judge
-            </DropdownMenuItem>
-            {/*Bannolás*/}
-            <DropdownMenuItem
-              onClick={() => handleBan(user.username, user.is_active)}
-            >
-              {user.is_active ? "Ban judge" : "Unban judge"}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
