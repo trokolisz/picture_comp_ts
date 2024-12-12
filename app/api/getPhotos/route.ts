@@ -29,7 +29,7 @@ async function fetchPhotoStatistics(): Promise<PhotoStatistics> {
   const snapshot = await get(competitionsRef);
 
   if (!snapshot.exists()) {
-    console.log('No competitions available');
+    //console.log('No competitions available');
     return {
       totalPhotosUploaded: 0,
       totalPhotosUploadedInLast7Days: 0,
@@ -45,7 +45,7 @@ async function fetchPhotoStatistics(): Promise<PhotoStatistics> {
   const past7Days = new Date(today.setDate(today.getDate() - 7));
   const dailyPhotoUploads: DailyPhotoStatistics = {};
 
-  console.log('Fetched competition data:', data);
+  //console.log('Fetched competition data:', data);
 
   for (const competitionKey in data) {
     const competition = data[competitionKey];
@@ -59,7 +59,7 @@ async function fetchPhotoStatistics(): Promise<PhotoStatistics> {
             const photo: Photo = team.photos[photoKey];
             const uploadTimestamp: Date = new Date(photo.timestamp);
 
-            console.log(`Processing photo from team ${teamKey} with timestamp: ${photo.timestamp}`);
+            //console.log(`Processing photo from team ${teamKey} with timestamp: ${photo.timestamp}`);
 
             if (isNaN(uploadTimestamp.getTime())) {
               console.error('Invalid timestamp:', photo.timestamp);
@@ -81,9 +81,9 @@ async function fetchPhotoStatistics(): Promise<PhotoStatistics> {
     }
   }
 
-  console.log('Total Photos Uploaded:', totalPhotosUploaded);
-  console.log('Total Photos Uploaded in Last 7 Days:', totalPhotosUploadedInLast7Days);
-  console.log('Daily Photo Uploads:', dailyPhotoUploads);
+  //console.log('Total Photos Uploaded:', totalPhotosUploaded);
+  //console.log('Total Photos Uploaded in Last 7 Days:', totalPhotosUploadedInLast7Days);
+  //console.log('Daily Photo Uploads:', dailyPhotoUploads);
 
   return {
     totalPhotosUploaded,

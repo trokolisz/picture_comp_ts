@@ -31,13 +31,13 @@ interface JudgeStatistics {
 
 async function fetchJudgeStatistics(): Promise<JudgeStatistics> {
   try {
-    console.log("Fetching competitions data...");
+    //console.log("Fetching competitions data...");
 
     const competitionsRef = ref(database, 'competitions');
     const snapshot = await get(competitionsRef);
 
     if (!snapshot.exists()) {
-      console.log('No competitions available');
+      //console.log('No competitions available');
       return {
         totalCompetitions: 0,
         activeCompetitions: 0,
@@ -48,7 +48,7 @@ async function fetchJudgeStatistics(): Promise<JudgeStatistics> {
       };
     }
 
-    console.log("Fetched snapshot data:", snapshot.val());
+    //console.log("Fetched snapshot data:", snapshot.val());
 
     const data: Record<string, Competition> = snapshot.val();
     let totalCompetitions = 0;
@@ -106,7 +106,7 @@ async function fetchJudgeStatistics(): Promise<JudgeStatistics> {
 export async function GET() {
   try {
     const statistics = await fetchJudgeStatistics();
-    console.log("Returning statistics:", statistics);
+    //console.log("Returning statistics:", statistics);
     return NextResponse.json({ success: true, data: statistics }, { status: 200 });
   } catch (error) {
     console.error('Error fetching judge statistics:', error);

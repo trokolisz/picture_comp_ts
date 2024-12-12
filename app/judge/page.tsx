@@ -1,19 +1,38 @@
-'use client'
-
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { Users, Gavel, Trophy, Settings } from "lucide-react"
-
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Star, Trophy, Camera } from "lucide-react"
+import { getCompetitions } from "@/lib/db"
 import Head from "@/components/header"
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 
-export default function Page() {
-  const [isUsersHovered, setIsUsersHovered] = useState(false)
-  const [isJudgesHovered, setIsJudgesHovered] = useState(false)
-  const [isCompetitionsHovered, setIsCompetitionsHovered] = useState(false)
-  const [isSettingsHovered, setIsSettingsHovered] = useState(false)
+export default async function Page() {
+
+  const competitions = await getCompetitions();
+  let activeCompetitions = 0;
+  let pendingPhotos = 0;
+  let ratedPhotos = 0;
+
+  if (!competitions) {
+    return <div>No competitions</div>;
+  }
+  for (const comp of Object.values(competitions)) {
+    if (comp.is_active) {
+      activeCompetitions++;
+    }
+    if(comp.teams) {
+      for (const team of Object.values(comp.teams)) {
+        if (team.photos) {
+          for (const photo of Object.values(team.photos)) {
+            if (!photo.scores) {
+              pendingPhotos++;
+            } else {
+              ratedPhotos++;
+            }
+          }
+        }
+      }
+    }
+  }
 
   return (
     <>
@@ -25,73 +44,65 @@ export default function Page() {
         </div>
       </header>
 
-      <div className="flex flex-col justify-center items-center py-4">
-        <h1 className="text-3xl font-bold font-montserrat">Judge Dashboard</h1>
-        <br/>
-        <h1 className="text-2xl font-semibold">Welcome Judge!</h1>
+      <div className="space-y-8">
+      <h1 className="text-3xl font-bold">Judge Dashboard</h1>
+      
+      <div className="grid gap-4 md:grid-cols-3">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Active Competitions</CardTitle>
+            <Trophy className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{activeCompetitions}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Pending Photos</CardTitle>
+            <Camera className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{pendingPhotos}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Rated Photos</CardTitle>
+            <Star className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{ratedPhotos}</div>
+          </CardContent>
+        </Card>
       </div>
 
-      <div className="flex flex-col justify-center items-center min-h-screen p-4 gap-4">
-        <div className="grid auto-rows-min gap-4 sm:grid-cols-2 md:grid-cols-4"> 
-
-          {/* Users Card */}
-          <Link href="/judge/users">
-            <div
-              onMouseEnter={() => setIsUsersHovered(true)}
-              onMouseLeave={() => setIsUsersHovered(false)}
-              className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-                ${isUsersHovered ? "dark:bg-primary bg-primary/80 dark:text-primary-foreground text-primary-foreground scale-105 shadow-lg" : "dark:bg-muted bg-muted/80 dark:text-muted-foreground text-muted-foreground shadow-md"}`}>
-              <Users className="text-4xl mb- " />
-              <h3 className="text-xl font-semibold ">Manage Users</h3>
-              <p className="text-sm">View and review user submissions</p>
-              <Button variant="outline" className="mt-4 text-black">Go</Button>
-            </div>
-          </Link>
-
-          {/* Judges Card */}
-          <Link href="/judge/judges">
-            <div
-              onMouseEnter={() => setIsJudgesHovered(true)}
-              onMouseLeave={() => setIsJudgesHovered(false)}
-              className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-              ${isJudgesHovered ?  "dark:bg-primary bg-primary/80 dark:text-primary-foreground text-primary-foreground scale-105 shadow-lg" : "dark:bg-muted bg-muted/80 dark:text-muted-foreground text-muted-foreground shadow-md"}`}>
-              <Gavel className="text-4xl mb-2" />
-              <h3 className="text-xl font-semibold">Judging Area</h3>
-              <p className="text-sm ">Review and score submissions</p>
-              <Button variant="outline" className="mt-4 text-black">Go</Button>
-            </div>
-          </Link>
-
-          {/* Competitions Card */}
-          <Link href="/judge/competitions">
-            <div
-              onMouseEnter={() => setIsCompetitionsHovered(true)}
-              onMouseLeave={() => setIsCompetitionsHovered(false)}
-              className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-              ${isCompetitionsHovered ? "dark:bg-primary bg-primary/80 dark:text-primary-foreground text-primary-foreground scale-105 shadow-lg" : "dark:bg-muted bg-muted/80 dark:text-muted-foreground text-muted-foreground shadow-md"}`}>
-              <Trophy className="text-4xl mb-2" />
-              <h3 className="text-xl font-semibold">Competitions</h3>
-              <p className="text-sm ">View and evaluate ongoing competitions</p>
-              <Button variant="outline" className="mt-4 text-black">Go</Button>
-            </div>
-          </Link>
-
-          {/* Settings Card */}
-          <Link href="/judge/settings">
-            <div
-              onMouseEnter={() => setIsSettingsHovered(true)}
-              onMouseLeave={() => setIsSettingsHovered(false)}
-              className={`aspect-video rounded-xl flex flex-col items-center justify-center p-4 text-center transition-all transform 
-              ${isSettingsHovered ? "dark:bg-primary bg-primary/80 dark:text-primary-foreground text-primary-foreground scale-105 shadow-lg" : "dark:bg-muted bg-muted/80 dark:text-muted-foreground text-muted-foreground shadow-md"}`}>
-              <Settings className="text-4xl mb-2" />
-              <h3 className="text-xl font-semibold">Settings</h3>
-              <p className="text-sm ">Configure your judging preferences</p>
-              <Button variant="outline" className="mt-4 text-black">Go</Button>
-            </div>
-          </Link>
-
-        </div>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Your Active Competitions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {Object.values(competitions)
+              .filter(comp => comp.is_active)
+              .map((comp, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <div>
+                    <div className="font-medium">{comp.title}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {comp.teams ? Object.keys(comp.teams).length : 0} teams participating
+                    </div>
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Ends {new Date(comp.end_date).toLocaleDateString()}
+                  </div>
+                </div>
+              ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+      
     </>
   )
 }

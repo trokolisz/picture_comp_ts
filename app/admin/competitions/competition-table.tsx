@@ -27,7 +27,9 @@ function CompetitionTableContent({
       <AdminHeader />
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Competitions</h1>
-        <Button>Create Competition</Button>
+        <Link href={"/admin/make_competitions"}>
+          <Button>Create Competition</Button>
+        </Link>
       </div>
 
       <Table>

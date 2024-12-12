@@ -51,7 +51,7 @@ export function LoginForm() {
         throw new Error('Invalid email or password');
       }
       localStorage.setItem('role', user.role);
-      console.log('Login successful:', user);
+      //console.log('Login successful:', user);
 
       if (user.role === 'judge') {
         router.push('/judge');
@@ -92,9 +92,6 @@ export function LoginForm() {
           <div className="grid gap-2">
             <div className="flex items-center">
               <Label htmlFor="password">Password</Label>
-              <Link href="#" className="ml-auto inline-block text-sm underline">
-                Forgot your password?
-              </Link>
             </div>
             <Input
               id="password"

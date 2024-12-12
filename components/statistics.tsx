@@ -30,7 +30,7 @@ export default function StatisticsSection() {
         const data = await response.json();
 
         if (data.success) {
-          console.log("API Response:", data);
+          //console.log("API Response:", data);
 
           const { totalPhotosUploaded, totalPhotosUploadedInLast7Days, dailyPhotoUploads } = data.data;
 

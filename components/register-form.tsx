@@ -65,7 +65,7 @@ export function RegisterForm() {
       }
 
       const newUser = await response.json();
-      console.log('Registration successful:', newUser);
+      //console.log('Registration successful:', newUser);
 
       router.push('/');
     } catch (err: any) {

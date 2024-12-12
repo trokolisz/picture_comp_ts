@@ -26,7 +26,7 @@ const Contact = () => {
 
       const result = await res.json();
       if (result.success) {
-        console.log("Success:", result);
+        //console.log("Success:", result);
         alert("Your message has been sent successfully!");
       } else {
         console.error("Error:", result);
