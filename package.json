@@ -41,7 +41,7 @@
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.5.1",
     "fast-sort": "^3.4.1",
-    "firebase": "^10.8.1",
+    "firebase": "^10.14.1",
     "heroicons": "^2.2.0",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",

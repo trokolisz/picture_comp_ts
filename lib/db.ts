@@ -7,7 +7,7 @@ import {
   update,
   remove,
 } from "firebase/database";
-import { db } from './firebase';
+import { database as db } from '@/FirebaseConfig';
 import { Competition, Team, Photo, User } from "./types";
 
 // Competition queries
